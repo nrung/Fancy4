@@ -8,11 +8,13 @@
  * @version 16 of April 2017
  */
 
-var mysql = require('mysql');
+let mysql = require('mysql');
 
-// Rather than creating and managing connections one-by-one, connection pooling
-//  is used instead.
-var pool = mysql.createPool({
+/**
+ * Connection pool object
+ * @type {mysql.Pool}
+ */
+let pool = mysql.createPool({
 	connectionLimit	: 1024,
 	host			: process.env.DB_HOST,
 	user			: process.env.DB_USERNAME,
@@ -96,7 +98,7 @@ exports.setData = function (sql, values) {
 				// Information provided from Update.
 				let resultSet = {
 					insertId : results.insertId,
-					rowsAddected : results.affectedRows
+					rowsAffected : results.affectedRows
 				};
 				resolve(resultSet);
 			});
