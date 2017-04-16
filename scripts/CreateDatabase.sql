@@ -19,7 +19,7 @@ CREATE TABLE User (
 	lastName VARCHAR(48) NOT NULL,
 	email VARCHAR(48),
 	role CHAR(1) NOT NULL,
-	poassword VARCHAR(256),
+	password VARCHAR(256),
 	CONSTRAINT pk_id PRIMARY KEY (id)
 );
 
