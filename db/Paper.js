@@ -54,7 +54,7 @@ Paper.prototype.fetch = function() {
 			if (resultSet.rows.length) {
 				thisPaper.title = resultSet.rows[0].title;
 				thisPaper.abstract = resultSet.rows[0].abstract;
-				thisPaper.citation = resultSet.rows[0].citation
+				thisPaper.citation = resultSet.rows[0].citation;
 
 				resolve();
 			}
