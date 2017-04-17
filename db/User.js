@@ -5,10 +5,11 @@
  * ISTE 330 01
  * Team 11 (Fancy Four)
  * @author Brendon Strowe
- * @version 16 of April 2017
+ * @modified Nick Rung
+ * @version 17 of April 2017
  */
 
- let MySQLDatabase = require('../db/MySQLDatabase.js');
+ const MySQLDatabase = require('../db/MySQLDatabase.js');
 
  // Make the "module" (Class/Object type) available for use in other files.
  module.exports = User;
