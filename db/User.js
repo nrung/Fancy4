@@ -51,7 +51,7 @@ User.prototype.fetch = function() {
 	let thisUser = this;
 
 	return new Promise(function(resolve, reject) {
-		MySQLDatabase.getData("SELECT * FROM User WHERE id = ?", [thisUser.id]).then(function (resultSet) {
+		MySQLDatabase.getData("SELECT * FROM Users WHERE id = ?", [thisUser.id]).then(function (resultSet) {
 
 			// Check to make sure data was fetched
 			if (resultSet.rows.length) {
@@ -81,7 +81,7 @@ User.prototype.update = function () {
 	let thisUser = this;
 
 	return new Promise(function(resolve, reject) {
-		MySQLDatabase.setData("UPDATE User " +
+		MySQLDatabase.setData("UPDATE Users " +
 				" SET firstName = ?, lastName = ?, email = ? " +
 				" WHERE id = ?",
 				[thisUser.firstName, thisUser.lastName, thisUser.email, thisUser.id]
@@ -107,7 +107,7 @@ User.prototype.post = function() {
 	let thisUser = this;
 
 	return new Promise(function(resolve, reject) {
-		MySQLDatabase.setData("INSERT INTO User (title, abstract, description) " +
+		MySQLDatabase.setData("INSERT INTO Users (title, abstract, description) " +
 				" VALUES (?, ?, ?) ",
 				[thisUser.firstName, thisUser.lastName, thisUser.email]
 			).then(function (resultSet) {
@@ -132,7 +132,7 @@ User.prototype.delete = function() {
 	let thisUser = this;
 
 	return new Promise(function(resolve, reject) {
-		MySQLDatabase.setData("DELETE FROM User " +
+		MySQLDatabase.setData("DELETE FROM Users " +
 				" WHERE id = ? ",
 				[thisUser.id]
 			).then(function (resultSet) {

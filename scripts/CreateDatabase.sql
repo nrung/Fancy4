@@ -1,6 +1,6 @@
 -- Faculty Research Database - Final Project
 -- ISTE 330 01
--- Team 11 (Fancy Four)
+-- Team 11 (Fancy 4)
 -- Script Author: Brendon Strowe
 
 
@@ -13,7 +13,7 @@ USE FacultyResearch;
 
 -- Table creation
 
-CREATE TABLE User (
+CREATE TABLE Users (
 	id INT UNSIGNED AUTO_INCREMENT,
 	firstName VARCHAR(48) NOT NULL,
 	lastName VARCHAR(48) NOT NULL,
@@ -35,21 +35,21 @@ CREATE TABLE Authorship (
 	userId INT UNSIGNED,
 	paperId INT UNSIGNED,
 	CONSTRAINT pk_userId_paperId PRIMARY KEY (userId, paperId),
-	CONSTRAINT fk_userId_Authorship FOREIGN KEY (userId) REFERENCES User(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_userId_Authorship FOREIGN KEY (userId) REFERENCES Users(id) ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT fk_paperId_Authorship FOREIGN KEY (paperId) REFERENCES Papers(id) ON UPDATE CASCADE
 );
 
 CREATE TABLE PaperKeywords (
-	id INT UNSIGNED AUTO_INCREMENT,
+	paperId INT UNSIGNED,
 	keyword VARCHAR(48),
-	CONSTRAINT pk_id_keyword PRIMARY KEY (id, keyword),
-	CONSTRAINT fk_id FOREIGN KEY (id) REFERENCES Papers(id) ON UPDATE CASCADE ON DELETE CASCADE
+	CONSTRAINT pk_paperId_keyword PRIMARY KEY (paperId, keyword),
+	CONSTRAINT fk_id FOREIGN KEY (paperId) REFERENCES Papers(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE SavedPapers (
 	userId INT UNSIGNED,
 	paperId INT UNSIGNED,
 	CONSTRAINT pk_paperId_userId PRIMARY KEY (paperId, userId),
-	CONSTRAINT fk_userId_SavedPapers FOREIGN KEY (userId) REFERENCES User(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_userId_SavedPapers FOREIGN KEY (userId) REFERENCES Users(id) ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT fk_paperId_SavedPapers FOREIGN KEY (paperId) REFERENCES Papers(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
