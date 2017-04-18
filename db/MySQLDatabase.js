@@ -63,7 +63,7 @@ exports.getData = function (sql, values) {
 			});
 		});
 	});
-}
+};
 
 
 /**
@@ -104,4 +104,4 @@ exports.setData = function (sql, values) {
 			});
 		});
 	});
-}
+};

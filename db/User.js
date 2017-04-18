@@ -66,7 +66,7 @@ User.prototype.fetch = function() {
 			reject(error);
 		});
 	});
-}
+};
 
 /**
  * Updates an existing User entry in the database.

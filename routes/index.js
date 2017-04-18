@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
 const Paper = require('../db/Paper.js');
 
@@ -20,5 +21,12 @@ router.get('/Papers/:id', function (request, response) {
 		response.send(error);
 	});
 });
+
+
+router.post('/login',
+    passport.authenticate('local', { failureRedirect: '/login' }),
+    function(req, res) {
+        res.redirect('/');
+    });
 
 module.exports = router;
