@@ -7,7 +7,7 @@ var User = require('../db/User.js');
 /* GET users listing. */
 router.get('/', function (request, response, next) {
 
-	MySQLDatabase.getData("SELECT id, firstName, lastName, email FROM User").then(function (resultSet) {
+	MySQLDatabase.getData("SELECT id, firstName, lastName, email FROM Users").then(function (resultSet) {
 		response.send(resultSet.rows);
 	}).catch(function(error) {
 		response.send(error);
