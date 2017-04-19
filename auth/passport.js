@@ -22,9 +22,11 @@ module.exports = function(passport) {
 // used to deserialize the user
     passport.deserializeUser(function (id, done) {
 
-        MySQLDatabase.getData("SELECT * FROM users WHERE id = ?", [id]).then(function (err, resultSet) {
-            done(err, resultSet[0]);
-        });
+        MySQLDatabase.getData("SELECT * FROM users WHERE id = ?", [id]).then(function (resultSet) {
+            done(null, resultSet[0]);
+        }).catch(function (error) {
+			done(error);
+		});
     });
 
 
@@ -35,10 +37,8 @@ module.exports = function(passport) {
         }, function (req, username, password, done) {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(function (err, resultSet) {
-                if (err)
-                    return done(err);
-                if (resultSet.length) {
+            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(function (resultSet) {
+				if (resultSet.length) {
                     return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                 } else {
                     // if there is no user with that username
@@ -50,19 +50,21 @@ module.exports = function(passport) {
 
                     let insertQuery = "INSERT INTO users ( email, password ) values (?,?)";
 
-                    MySQLDatabase.query(insertQuery, [newUserMysql.username, newUserMysql.password]).then(function (err, resultSet) {
+                    MySQLDatabase.setData(insertQuery, [newUserMysql.username, newUserMysql.password]).then(function (resultSet) {
                         newUserMysql.id = resultSet.insertId;
 
                         return done(null, newUserMysql);
-                    }).then(function (resolve, reject) {
-                        resolve();
-                    }).catch(function(error) {
 
+					}).catch(function(error) {
+						// Error from inserting new user into users table
                         console.log(error);
-
+						return done(error);
                     });
                 }
-            });
+			}).catch(function (error) {
+				// Error from querying if user exists
+				return done(error);
+			});
         })
     );
 };

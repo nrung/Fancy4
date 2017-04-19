@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 });
 
 /* GET a Paper by its id */
-router.get('/Papers/:id', isLoggedIn, function (request, response) {
+router.get('/papers/:id', isLoggedIn, function (request, response) {
 	let requestedPaper = new Paper(request.params.id);
 
 	// Fetch the requested paper. Respond with data about the paper.
@@ -26,9 +26,12 @@ router.get('/Papers/:id', isLoggedIn, function (request, response) {
 router.get('/papers/:id/keywords', isLoggedIn, function (request, response) {
 	let requestedPaperKeywords = new PaperKeywords(request.params.id);
 
+	console.log("REQUEST PAPER BY ID");
+
 	// Fetch the requested paper. Respond with data about the paper.
 	//  If there is an error, catch it and report it.
 	requestedPaperKeywords.fetch().then(function() {
+		console.log("FETCHED PAPER BY ID");
 		response.send(requestedPaperKeywords.paperId + " " + requestedPaperKeywords.keywords);
 	}).catch(function(error) {
 		response.send(error);
