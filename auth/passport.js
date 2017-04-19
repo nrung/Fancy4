@@ -22,19 +22,8 @@ module.exports = function(passport) {
 // used to deserialize the user
     passport.deserializeUser(function (id, done) {
 
-        return new Promise(function (resolve, reject) {
-
-            MySQLDatabase.getData("SELECT * FROM users WHERE id = ? ", [id]).then(function (err, resultSet) {
-
-                if (resultSet.length === 0) {
-                    reject("User not found.")
-                }
-
-                done(err, resultSet[0]);
-                resolve();
-            }.catch(function (error) {
-                reject(error);
-            }));
+        MySQLDatabase.getData("SELECT * FROM users WHERE id = ?", [id]).then(function (err, resultSet) {
+            done(err, resultSet[0]);
         });
     });
 
@@ -46,11 +35,11 @@ module.exports = function(passport) {
         }, function (req, username, password, done) {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            return new Promise(MySQLDatabase.getData("SELECT * FROM users WHERE username = ?", [username]).then(function (err, resultSet) {
+            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(function (err, resultSet) {
                 if (err)
                     return done(err);
                 if (resultSet.length) {
-                    return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                 } else {
                     // if there is no user with that username
                     // create the user
@@ -59,18 +48,21 @@ module.exports = function(passport) {
                         password: bcrypt.hashSync(password, "SaltySaltSaltSalt")  // use the generateHash function in our user model
                     };
 
-                    let insertQuery = "INSERT INTO users ( username, password ) values (?,?)";
+                    let insertQuery = "INSERT INTO users ( email, password ) values (?,?)";
 
-                    return new Promise(MySQLDatabase.query(insertQuery, [newUserMysql.username, newUserMysql.password]).then(function (err, resultSet) {
+                    MySQLDatabase.query(insertQuery, [newUserMysql.username, newUserMysql.password]).then(function (err, resultSet) {
                         newUserMysql.id = resultSet.insertId;
 
-                        resolve();
                         return done(null, newUserMysql);
-                    }).catch(function (error) {
-                        reject(error);
-                    }));
+                    }).then(function (resolve, reject) {
+                        resolve();
+                    }).catch(function(error) {
+
+                        console.log(error);
+
+                    });
                 }
-            }));
+            });
         })
     );
-}
+};
