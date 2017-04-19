@@ -42,10 +42,14 @@ router.get('/login', function (req, res) {
 	res.render('login.hbs', {message: req.flash('loginMessage')});
 });
 
-router.post('/login', passport.authenticate('local', {
-	successRedirect: '/',
+router.post('/login', passport.authenticate('local-login', {
+	successRedirect: '/profile',
 	failureRedirect: '/login'
 }));
+
+router.get('/profile', isLoggedIn, function (req, res) {
+    res.render('profile.hbs', {user: req.user});
+});
 
 router.get('/logout', function(req, res) {
     req.logout();

@@ -23,11 +23,35 @@ module.exports = function(passport) {
     passport.deserializeUser(function (id, done) {
 
         MySQLDatabase.getData("SELECT * FROM users WHERE id = ?", [id]).then(function (resultSet) {
-            done(null, resultSet[0]);
+            console.dir(resultSet.rows[0]);
+            done(null, resultSet.rows[0]);
         }).catch(function (error) {
 			done(error);
 		});
     });
+
+    passport.use('local-login', new LocalStrategy({
+            usernameField: 'email',
+            passwordField: 'password',
+            passReqToCallback: true,
+        },
+        function(req, email, password, done) {
+            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [email]).then(function (resultSet) {
+
+                var user = resultSet.rows[0];
+
+                if (!user) {
+                    console.log('no user');
+                    return done(null, false, req.flash('loginMessage', 'No user found.'));
+                }
+                if (!bcrypt.compareSync(password, user.password)) {
+                    console.log('bad pass');
+                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+
+                }
+                return done(null, user);
+            });
+        }));
 
 
     passport.use('local-signup', new LocalStrategy({
@@ -45,12 +69,15 @@ module.exports = function(passport) {
                     // create the user
                     let newUserMysql = {
                         username: username,
-                        password: bcrypt.hashSync(password, "SaltySaltSaltSalt")  // use the generateHash function in our user model
+                        password: bcrypt.hashSync(password, null, null),  // use the generateHash function in our user model
+                        firstname: req.body.firstname,
+                        lastname: req.body.lastname,
+                        role: 'S'
                     };
 
-                    let insertQuery = "INSERT INTO users ( email, password ) values (?,?)";
+                    let insertQuery = "INSERT INTO users ( email, password, firstname, lastname ) values (?,?,?,?)";
 
-                    MySQLDatabase.setData(insertQuery, [newUserMysql.username, newUserMysql.password]).then(function (resultSet) {
+                    MySQLDatabase.setData(insertQuery, [newUserMysql.username, newUserMysql.password, newUserMysql.firstname, newUserMysql.lastname]).then(function (resultSet) {
                         newUserMysql.id = resultSet.insertId;
 
                         return done(null, newUserMysql);
