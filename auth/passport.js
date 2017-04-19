@@ -31,14 +31,14 @@ module.exports = function(passport) {
     });
 
     passport.use('local-login', new LocalStrategy({
-            usernameField: 'email',
+            usernameField: 'username',
             passwordField: 'password',
             passReqToCallback: true,
         },
-        function(req, email, password, done) {
-            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [email]).then(function (resultSet) {
+        function(req, username, password, done) {
+            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(function (resultSet) {
 
-                var user = resultSet.rows[0];
+                let user = resultSet.rows[0];
 
                 if (!user) {
                     console.log('no user');

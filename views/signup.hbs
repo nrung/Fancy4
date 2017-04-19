@@ -1,16 +1,19 @@
 <h1>Signup</h1>
+{{#if message}}
+    <h2>{{message}}</h2>
+{{/if}}
 <form action="/signup" method="post">
-    <label>
-        <input name="username" type="email" placeholder="Email">
+    <label> Email:
+        <input name="username" type="email" placeholder="bob@bobjones.com" required>
     </label>
-    <label>
-        <input name="firstname" type="text" placeholder="Bob">
+    <label> First Name:
+        <input name="firstname" type="text" placeholder="Bob" required>
     </label>
-    <label>
-        <input name="lastname" type="text" placeholder="Jones">
+    <label> Last Name:
+        <input name="lastname" type="text" placeholder="Jones" required>
     </label>
-    <label>
-        <input name="password" type="password" placeholder="Password">
+    <label> Password:
+        <input name="password" type="password" placeholder="Password" required>
     </label>
     <input type="submit">
 </form>

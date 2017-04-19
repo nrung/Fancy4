@@ -44,7 +44,8 @@ router.get('/login', function (req, res) {
 
 router.post('/login', passport.authenticate('local-login', {
 	successRedirect: '/profile',
-	failureRedirect: '/login'
+	failureRedirect: '/login',
+	failureFlash: true
 }));
 
 router.get('/profile', isLoggedIn, function (req, res) {
