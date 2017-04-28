@@ -13,21 +13,21 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt-nodejs');
 const MySQLDatabase = require('../db/MySQLDatabase');
 
-module.exports = function(passport) {
+module.exports = (passport) => {
 // used to serialize the user for the session
-    passport.serializeUser(function (user, done) {
+    passport.serializeUser((user, done) => {
         done(null, user.id);
     });
 
 // used to deserialize the user
-    passport.deserializeUser(function (id, done) {
+    passport.deserializeUser((id, done) => {
 
         MySQLDatabase.getData("SELECT * FROM users WHERE id = ?", [id]).then(function (resultSet) {
             console.dir(resultSet.rows[0]);
             done(null, resultSet.rows[0]);
         }).catch(function (error) {
-			done(error);
-		});
+            done(error);
+        });
     });
 
     passport.use('local-login', new LocalStrategy({
@@ -62,7 +62,7 @@ module.exports = function(passport) {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
             MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(function (resultSet) {
-				if (resultSet.length) {
+                if (resultSet.length) {
                     return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                 } else {
                     // if there is no user with that username
@@ -82,16 +82,16 @@ module.exports = function(passport) {
 
                         return done(null, newUserMysql);
 
-					}).catch(function(error) {
-						// Error from inserting new user into users table
+                    }).catch(function(error) {
+                        // Error from inserting new user into users table
                         console.log(error);
-						return done(error);
+                        return done(error);
                     });
                 }
-			}).catch(function (error) {
-				// Error from querying if user exists
-				return done(error);
-			});
+            }).catch(function (error) {
+                // Error from querying if user exists
+                return done(error);
+            });
         })
     );
 };
