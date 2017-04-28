@@ -41,14 +41,14 @@ function Paper(id) {
  *
  * @return {Promise} Whether or not the fetch was successful.
  */
-Paper.prototype.fetch = function() {
+Paper.prototype.fetch = () => {
 
 	// Must set a variable definition for 'this' as once iniside the Promise,
 	// 'this' will no longer refer to the Paper object.
 	let thisPaper = this;
 
-	return new Promise(function(resolve, reject) {
-		MySQLDatabase.getData("SELECT * FROM Papers WHERE id = ?", [thisPaper.id]).then(function (resultSet) {
+	return new Promise((resolve, reject) => {
+		MySQLDatabase.getData("SELECT * FROM Papers WHERE id = ?", [thisPaper.id]).then(resultSet => {
 
 			// Check to make sure data was fetched
 			if (resultSet.rows.length) {
@@ -59,11 +59,11 @@ Paper.prototype.fetch = function() {
 				resolve();
 			}
 			reject("PAPER NOT FOUND");
-		}).catch(function (error) {
+		}).catch(error => {
 			reject(error);
 		});
 	});
-}
+};
 
 /**
  * Updates an existing Paper entry in the database.
@@ -77,15 +77,15 @@ Paper.prototype.update = function () {
 	// 'this' will no longer refer to the Paper object.
 	let thisPaper = this;
 
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		MySQLDatabase.setData("UPDATE Papers " +
 				" SET title = ?, abstract = ?, citation = ? " +
 				" WHERE id = ?",
 				[thisPaper.title, thisPaper.abstract, thisPaper.citation, thisPaper.id]
-			).then(function (resultSet) {
+			).then(resultSet => {
 
 			resolve(resultSet.rowsAffected);
-		}).catch(function (error) {
+		}).catch(error => {
 			reject(error);
 		});
 	});
@@ -97,24 +97,24 @@ Paper.prototype.update = function () {
  * @return {Promise} Whether or not the addition was successful. A successful
  * POST resolves with the number of rows affected.
  */
-Paper.prototype.post = function() {
+Paper.prototype.post = () => {
 
 	// Must set a variable definition for 'this' as once iniside the Promise,
 	// 'this' will no longer refer to the Paper object.
 	let thisPaper = this;
 
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		MySQLDatabase.setData("INSERT INTO Papers (title, abstract, description) " +
 				" VALUES (?, ?, ?) ",
 				[thisPaper.title, thisPaper.abstract, thisPaper.citation]
-			).then(function (resultSet) {
+			).then(resultSet => {
 
 			resolve(resultSet.rowsAffected);
-		}).catch(function (error) {
+		}).catch(error => {
 			reject(error);
 		});
 	});
-}
+};
 
 /**
  * Deletes a Paper entry from the database.
@@ -122,21 +122,21 @@ Paper.prototype.post = function() {
  * @return {Promise} Whether or not the deletion was successful. A successful
  * DELETE resolves with the number of rows affected.
  */
-Paper.prototype.delete = function() {
+Paper.prototype.delete = () => {
 
 	// Must set a variable definition for 'this' as once iniside the Promise,
 	// 'this' will no longer refer to the Paper object.
 	let thisPaper = this;
 
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		MySQLDatabase.setData("DELETE FROM Papers " +
 				" WHERE id = ? ",
 				[thisPaper.id]
-			).then(function (resultSet) {
+			).then(resultSet => {
 
 			resolve(resultSet.rowsAffected);
-		}).catch(function (error) {
+		}).catch(error => {
 			reject(error);
 		});
 	});
-}
+};

@@ -13,7 +13,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt-nodejs');
 const MySQLDatabase = require('../db/MySQLDatabase');
 
-module.exports = (passport) => {
+module.exports = passport => {
 // used to serialize the user for the session
     passport.serializeUser((user, done) => {
         done(null, user.id);
@@ -22,7 +22,7 @@ module.exports = (passport) => {
 // used to deserialize the user
     passport.deserializeUser((id, done) => {
 
-        MySQLDatabase.getData("SELECT * FROM users WHERE id = ?", [id]).then(function (resultSet) {
+        MySQLDatabase.getData("SELECT * FROM users WHERE id = ?", [id]).then(resultSet => {
             console.dir(resultSet.rows[0]);
             done(null, resultSet.rows[0]);
         }).catch(function (error) {
@@ -36,7 +36,7 @@ module.exports = (passport) => {
             passReqToCallback: true,
         },
         function(req, username, password, done) {
-            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(function (resultSet) {
+            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(resultSet => {
 
                 let user = resultSet.rows[0];
 
@@ -61,7 +61,7 @@ module.exports = (passport) => {
         }, function (req, username, password, done) {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(function (resultSet) {
+            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(resultSet => {
                 if (resultSet.length) {
                     return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                 } else {
@@ -77,7 +77,7 @@ module.exports = (passport) => {
 
                     let insertQuery = "INSERT INTO users ( email, password, firstname, lastname ) values (?,?,?,?)";
 
-                    MySQLDatabase.setData(insertQuery, [newUserMysql.username, newUserMysql.password, newUserMysql.firstname, newUserMysql.lastname]).then(function (resultSet) {
+                    MySQLDatabase.setData(insertQuery, [newUserMysql.username, newUserMysql.password, newUserMysql.firstname, newUserMysql.lastname]).then(resultSet => {
                         newUserMysql.id = resultSet.insertId;
 
                         return done(null, newUserMysql);

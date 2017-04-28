@@ -50,8 +50,8 @@ User.prototype.fetch = function() {
 	// 'this' will no longer refer to the User object.
 	let thisUser = this;
 
-	return new Promise(function(resolve, reject) {
-		MySQLDatabase.getData("SELECT * FROM Users WHERE id = ?", [thisUser.id]).then(function (resultSet) {
+	return new Promise((resolve, reject) => {
+		MySQLDatabase.getData("SELECT * FROM Users WHERE id = ?", [thisUser.id]).then(resultSet => {
 
 			// Check to make sure data was fetched
 			if (resultSet.rows.length) {
@@ -62,7 +62,7 @@ User.prototype.fetch = function() {
 				resolve();
 			}
 			reject("USER NOT FOUND");
-		}).catch(function (error) {
+		}).catch(error => {
 			reject(error);
 		});
 	});
@@ -74,21 +74,21 @@ User.prototype.fetch = function() {
  * @return {Promise} Whether or not the update was successful. A successful
  * update resolves with the number of rows affected.
  */
-User.prototype.update = function () {
+User.prototype.update = () => {
 
 	// Must set a variable definition for 'this' as once iniside the Promise,
 	// 'this' will no longer refer to the User object.
 	let thisUser = this;
 
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		MySQLDatabase.setData("UPDATE Users " +
 				" SET firstName = ?, lastName = ?, email = ? " +
 				" WHERE id = ?",
 				[thisUser.firstName, thisUser.lastName, thisUser.email, thisUser.id]
-			).then(function (resultSet) {
+			).then(resultSet => {
 
 			resolve(resultSet.rowsAffected);
-		}).catch(function (error) {
+		}).catch(error => {
 			reject(error);
 		});
 	});
@@ -100,24 +100,24 @@ User.prototype.update = function () {
  * @return {Promise} Whether or not the addition was successful. A successful
  * POST resolves with the number of rows affected.
  */
-User.prototype.post = function() {
+User.prototype.post = () => {
 
 	// Must set a variable definition for 'this' as once iniside the Promise,
 	// 'this' will no longer refer to the User object.
 	let thisUser = this;
 
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		MySQLDatabase.setData("INSERT INTO Users (title, abstract, description) " +
 				" VALUES (?, ?, ?) ",
 				[thisUser.firstName, thisUser.lastName, thisUser.email]
-			).then(function (resultSet) {
+			).then((resultSet) => {
 
 			resolve(resultSet.rowsAffected);
-		}).catch(function (error) {
+		}).catch(error => {
 			reject(error);
 		});
 	});
-}
+};
 
 /**
  * Deletes a User entry from the database.
@@ -125,21 +125,21 @@ User.prototype.post = function() {
  * @return {Promise} Whether or not the deletion was successful. A successful
  * DELETE resolves with the number of rows affected.
  */
-User.prototype.delete = function() {
+User.prototype.delete = () => {
 
 	// Must set a variable definition for 'this' as once iniside the Promise,
 	// 'this' will no longer refer to the User object.
 	let thisUser = this;
 
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		MySQLDatabase.setData("DELETE FROM Users " +
 				" WHERE id = ? ",
 				[thisUser.id]
-			).then(function (resultSet) {
+			).then(resultSet => {
 
 			resolve(resultSet.rowsAffected);
-		}).catch(function (error) {
+		}).catch(error => {
 			reject(error);
 		});
 	});
-}
+};

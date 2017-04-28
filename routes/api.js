@@ -20,9 +20,9 @@ router.get('/:id', function (request, response) {
 
 	// Fetch the requested user. Respond with data about the user.
 	//  If there is an error, catch it and report it.
-	requestedUser.fetch().then(function() {
+	requestedUser.fetch().then(() => {
 		response.send(requestedUser.id + " " + requestedUser.firstName + " " + requestedUser.lastName);
-	}).catch(function(error) {
+	}).catch(error => {
 		response.send(error);
 	});
 });
@@ -35,7 +35,7 @@ router.get('/papers/:id', isLoggedIn, (request, response) => {
     //  If there is an error, catch it and report it.
     requestedPaper.fetch().then(() => {
         response.send(requestedPaper.id + " " + requestedPaper.title);
-    }).catch((error) => {
+    }).catch(error => {
         response.send(error);
     });
 });
@@ -51,7 +51,7 @@ router.get('/papers/:id/keywords', isLoggedIn, (request, response) => {
     requestedPaperKeywords.fetch().then(() => {
         console.log("FETCHED PAPER BY ID");
         response.send(requestedPaperKeywords.paperId + " " + requestedPaperKeywords.keywords);
-    }).catch((error) => {
+    }).catch(error => {
         response.send(error);
     });
 });

@@ -53,4 +53,14 @@ function isLoggedIn(req, res, next) {
     res.redirect('/');
 }
 
+function checkRole(role) {
+    return (req, res, next) => {
+        if(req.user.role === role) {
+            next();
+        } else {
+            res.redirect(401, '/');
+        }
+    }
+}
+
 module.exports = router;

@@ -31,14 +31,14 @@ let pool = mysql.createPool({
  * @param {array} values - A list of values to be bound to the precompiled SQL Statement.
  * @return {Promise} Whether or not establishing a connection and retrieving the data was successful or not.
  */
-exports.getData = function (sql, values) {
+exports.getData = (sql, values) => {
 
     // If an error is encountered, the Promise will be rejected with an explanitory error.
     //  Else, it will be resolved with the resulting data from the database query.
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
 
         // Attempt to connect using connection pool.
-        pool.getConnection(function(connectionError, connection) {
+        pool.getConnection((connectionError, connection) => {
             if (connectionError) {
                 console.log("ERROR: " + connectionError.code);
                 reject("Error connecting to database. Message: " + connectionError.code);
@@ -47,7 +47,7 @@ exports.getData = function (sql, values) {
             console.log('connected as id ' + connection.threadId);
 
             // Perform SQL query.
-            connection.query(sql, values, function(queryError, results, fields) {
+            connection.query(sql, values, (queryError, results, fields) => {
                 connection.release();
 
                 if (queryError) {
@@ -65,7 +65,6 @@ exports.getData = function (sql, values) {
     });
 };
 
-
 /**
  * This method will update the database using a precompiled SQL Statement.
  *
@@ -73,14 +72,14 @@ exports.getData = function (sql, values) {
  * @param {array} values - A list of values to be bound to the precompiled SQL Statement.
  * @return {Promise} whether or not the command execution was successful.
  */
-exports.setData = function (sql, values) {
+exports.setData = (sql, values) => {
 
     // If an error is encountered, the Promise will be rejected with an explanitory error.
     //  Else, it will be resolved with the resulting data from the database query.
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
 
         // Attempt to connect using connection pool.
-        pool.getConnection(function(connectionError, connection) {
+        pool.getConnection((connectionError, connection) => {
             if (connectionError) {
                 reject("Error connecting to database. Message: " + connectionError.code);
             }
@@ -88,7 +87,7 @@ exports.setData = function (sql, values) {
             console.log('connected as id ' + connection.threadId);
 
             // Perform SQL update.
-            connection.query(sql, values, function(updateError, results) {
+            connection.query(sql, values, (updateError, results) => {
                 connection.release();
 
                 if (updateError) {

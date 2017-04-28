@@ -38,30 +38,30 @@ function PaperKeywords(paperId) {
  *
  * @return {Promise} Whether or not the fetch was successful.
  */
-PaperKeywords.prototype.fetch = function() {
+PaperKeywords.prototype.fetch = () => {
 
 	// Must set a variable definition for 'this' as once iniside the Promise,
 	// 'this' will no longer refer to the PaperKeywords object.
 	let thesePaperKeywords = this;
 
-	return new Promise(function(resolve, reject) {
-		MySQLDatabase.getData("SELECT * FROM PaperKeywords WHERE paperId = ?", [thesePaperKeywords.paperId]).then(function (resultSet) {
+	return new Promise((resolve, reject) => {
+		MySQLDatabase.getData("SELECT * FROM PaperKeywords WHERE paperId = ?", [thesePaperKeywords.paperId]).then(resultSet => {
 
 			// Check to make sure data was fetched
 			if (resultSet.rows.length) {
 				// Go through all of the keywords returned from the database
-				resultSet.rows.forEach(function (row) {
+				resultSet.rows.forEach(row => {
 					thesePaperKeywords.keywords.push(row.keyword);
 				});
 
 				resolve();
 			}
 			reject("PAPER NOT FOUND. NO KEYWORDS FETCHED.");
-		}).catch(function (error) {
+		}).catch(error => {
 			reject(error);
 		});
 	});
-}
+};
 
 /**
  * Updates an existing list of Keywords for a Paper entry in the database.
@@ -75,24 +75,24 @@ PaperKeywords.prototype.update = function () {
 	// 'this' will no longer refer to the Paper object.
 	let thesePaperKeywords = this;
 
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		// Deletes all of the keywords currently in the table for a given paper
 		//  then inserts the newly updated list of keywords.
 		MySQLDatabase.setData("DELETE FROM PaperKeywords " +
 				" WHERE id = ? ",
 				[thesePaperKeywords.paperId]
-			).then(function (resultSet) {
-				thesePaperKeywords.keywords.forEach(function (keyword) {
+			).then(resultSet => {
+				thesePaperKeywords.keywords.forEach(keyword => {
 					MySQLDatabase.setData("INSERT INTO PaperKeywords (paperId, keyword)" +
 							" VALUES ( ?, ? ) ",
 							[thesePaperKeywords.paperId, keyword])
-					.catch(function (error) {
+					.catch(error => {
 						reject(error);
 					});
 				});
 
 				resolve(resultSet.rowsAffected);
-		}).catch(function (error) {
+		}).catch(error => {
 			// Error deleting keywords for a given Paper
 			reject(error);
 		});
@@ -112,15 +112,15 @@ PaperKeywords.prototype.post = function(newKeyword) {
 	// 'this' will no longer refer to the Paper object.
 	let thesePaperKeywords = this;
 
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		thesePaperKeywords.keywords.push(newKeyword);
-		thesePaperKeywords.update().then(function (numRowsAffected) {
+		thesePaperKeywords.update().then(numRowsAffected => {
 			resolve(numRowsAffected);
-		}).catch(function (error) {
+		}).catch(error => {
 				reject(error);
 		});
 	});
-}
+};
 
 /**
  * Deletes a Keyword for a Paper entry in the database.
@@ -135,13 +135,13 @@ PaperKeywords.prototype.delete = function(deletedKeyword) {
 	// 'this' will no longer refer to the Paper object.
 	let thesePaperKeywords = this;
 
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		let indexToRemove = thesePaperKeywords.keywords.indexOf(deletedKeyword);
 		thesePaperKeywords.keywords.splice(indexToRemove, 1);
-		thesePaperKeywords.update().then(function (numRowsAffected) {
+		thesePaperKeywords.update().then(numRowsAffected => {
 			resolve(numRowsAffected);
-		}).catch(function (error) {
+		}).catch(error => {
 				reject(error);
 		});
 	});
-}
+};
