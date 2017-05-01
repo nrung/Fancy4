@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+    {{> head}}
+
 </head>
 <body>
-{{{body}}}
+
+{{> nav}}
+
+<!-- Page Content -->
+<div class="container">
+
+    {{{body}}}
+
+    {{> footer}}
+
+</div>
+<!-- /.container -->
+
+{{> scripts}}
+
 </body>
 </html>

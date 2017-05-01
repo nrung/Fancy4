@@ -7,10 +7,13 @@ const PaperKeywords = require('../db/PaperKeywords');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    res.render('index.hbs', {title: 'Express'});
+    res.redirect('/login');
 });
 
 router.get('/login', (req, res) => {
+    if(req.isAuthenticated()) {
+        res.redirect()
+    }
     res.render('login.hbs', {message: req.flash('loginMessage')});
 });
 
@@ -24,7 +27,7 @@ router.get('/profile', isLoggedIn, (req, res) => {
     res.render('profile.hbs', {user: req.user});
 });
 
-router.get('/paper', isLoggedIn, (req, res) => {
+router.get('/papers', isLoggedIn, (req, res) => {
     res.render('profile.hbs', {user: req.user});
 });
 
