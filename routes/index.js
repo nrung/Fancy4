@@ -4,9 +4,10 @@ const passport = require('passport');
 
 const Paper = require('../db/Paper');
 const PaperKeywords = require('../db/PaperKeywords');
+const BusinessIndex = require('../business/BusinessIndex');
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
     res.redirect('/login');
 });
 
@@ -29,7 +30,10 @@ router.get('/profile', isLoggedIn, (req, res) => {
 });
 
 router.get('/papers', isLoggedIn, (req, res) => {
-    res.render('profile', {user: req.user});
+
+    let Business = new BusinessIndex();
+
+    res.render('papers', {title: "Papers", user: req.user, papers: Business.getAllPapers()});
 });
 
 router.get('/logout', (req, res) => {
