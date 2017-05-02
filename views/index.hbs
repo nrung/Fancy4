@@ -9,49 +9,18 @@
     </div>
     <!-- /.row -->
 
+{{#each paper}}
+    {{#if @index}}
     <!-- Content Row -->
     <div class="row">
-        <div class="col-md-3 ">
+        <div class="col-md-3">
             <div class="panel panel-default">
-                <div class="panel-heading"><h2>Title 1</h2></div>
-                <div class="panel-body"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat.</p></div>
-            </div>
-        </div>
-        <!-- /.col-md-3 -->
-        <div class="col-md-3 ">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h2>Title 1</h2></div>
-                <div class="panel-body"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat.</p></div>
-            </div>
-        </div>
-        <!-- /.col-md-3 -->
-        <div class="col-md-3 ">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h2>Title 1</h2></div>
-                <div class="panel-body"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat.</p></div>
-            </div>
-        </div>
-        <!-- /.col-md-3 -->
-        <div class="col-md-3 ">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h2>Title 1</h2></div>
-                <div class="panel-body"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat.</p></div>
-            </div>
-        </div>
-        <!-- /.col-md-3 -->
-        <div class="col-md-3 ">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h2>Title 1</h2></div>
-                <div class="panel-body"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat.</p></div>
-            </div>
-        </div>
-        <!-- /.col-md-3 -->
-        <div class="col-md-3 ">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h2>Title 1</h2></div>
+                <div class="panel-heading"><h2>{{title}}</h2></div>
                 <div class="panel-body"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat.</p></div>
             </div>
         </div>
         <!-- /.col-md-3 -->
     </div>
     <!-- /.row -->
+    {{/if}}
+{{/each}}
