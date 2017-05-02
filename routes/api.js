@@ -3,6 +3,8 @@ const router = express.Router();
 
 const MySQLDatabase = require('../db/MySQLDatabase.js');
 const User = require('../db/User.js');
+const Paper = require('../db/Paper');
+const PaperKeywords = require('../db/PaperKeywords');
 
 /* GET users listing. */
 // router.get('/', function (request, response, next) {

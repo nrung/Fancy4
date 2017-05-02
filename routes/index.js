@@ -13,8 +13,9 @@ router.get('/', (req, res, next) => {
 router.get('/login', (req, res) => {
     if(req.isAuthenticated()) {
         res.redirect()
+    } else {
+        res.render('login', {message: req.flash('loginMessage')});
     }
-    res.render('login.hbs', {message: req.flash('loginMessage')});
 });
 
 router.post('/login', passport.authenticate('local-login', {
@@ -24,11 +25,11 @@ router.post('/login', passport.authenticate('local-login', {
 }));
 
 router.get('/profile', isLoggedIn, (req, res) => {
-    res.render('profile.hbs', {user: req.user});
+    res.render('profile', {user: req.user});
 });
 
 router.get('/papers', isLoggedIn, (req, res) => {
-    res.render('profile.hbs', {user: req.user});
+    res.render('profile', {user: req.user});
 });
 
 router.get('/logout', (req, res) => {
@@ -40,7 +41,7 @@ router.get('/signup', (req, res) => {
     if (req.isAuthenticated()) {
         res.redirect('/');
     } else {
-        res.render('signup.hbs', {message: req.flash('signupMessage')});
+        res.render('signup', {message: req.flash('signupMessage')});
     }
 });
 
