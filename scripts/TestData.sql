@@ -19,7 +19,7 @@ INSERT INTO Papers (id,title,abstract,citation)
     (1,'Andrew Does Research', 'Andrew Diana reads a textbook','citation?'),
     (2,'Nick Does Research', 'Nick Rung reads a textbook','citation?'),
     (3,'Brendon Does Research', 'Brendon Strowe reads a textbook','citation?'),
-    (4,'Brendan Does Research', 'Brendan McGeever reads a textbook','citation?')
+    (4,'Brendan Does Research', 'Brendan McGeever reads a textbook','citation?'),
     (5,'Erica Does Research', 'Erica Parker reads a textbook','citation?'),
     (6,'Jimmy Does Research', 'Jimmy John reads a textbook','citation?'),
     (7,'Peter Does Research', 'Peter Potter reads a textbook','citation?'),
