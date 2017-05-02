@@ -14,7 +14,7 @@ router.get('/login', (req, res) => {
     if(req.isAuthenticated()) {
         res.redirect()
     } else {
-        res.render('login', {message: req.flash('loginMessage')});
+        res.render('login', {hideNav: true, message: req.flash('loginMessage')});
     }
 });
 
