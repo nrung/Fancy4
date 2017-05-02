@@ -23,8 +23,8 @@ INSERT INTO Papers (id,title,abstract,citation)
     (5,'Erica Does Research', 'Erica Parker reads a textbook','citation?'),
     (6,'Jimmy Does Research', 'Jimmy John reads a textbook','citation?'),
     (7,'Peter Does Research', 'Peter Potter reads a textbook','citation?'),
-    (8,'Jacob Does Research', 'Jacob Risenger reads a textbook','citation?')
-	(9,'Jason Does Research', 'Jason Lamb reads a textbook','citation?')
+    (8,'Jacob Does Research', 'Jacob Risenger reads a textbook','citation?'),
+	(9,'Jason Does Research', 'Jason Lamb reads a textbook','citation?'),
 	(10,'Erin Does Research', 'Erin McGeever reads a textbook','citation?');
 
 /*Insert into Authorship table*/
