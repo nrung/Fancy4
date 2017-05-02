@@ -12,7 +12,7 @@ let mysql = require('mysql');
 
 /**
  * Connection pool object
- * @type {mysql.Pool}
+ * @type {Pool}
  */
 let pool = mysql.createPool({
     connectionLimit    : 1024,
@@ -87,7 +87,7 @@ exports.setData = (sql, values) => {
             console.log('connected as id ' + connection.threadId);
 
             // Perform SQL update.
-            connection.query(sql, values, (updateError, results) => {
+           connection.query(sql, values, (updateError, results) => {
                 connection.release();
 
                 if (updateError) {

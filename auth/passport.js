@@ -25,7 +25,7 @@ module.exports = passport => {
         MySQLDatabase.getData("SELECT * FROM users WHERE id = ?", [id]).then(resultSet => {
             console.dir(resultSet.rows[0]);
             done(null, resultSet.rows[0]);
-        }).catch(function (error) {
+        }).catch(error => {
             done(error);
         });
     });
@@ -35,7 +35,7 @@ module.exports = passport => {
             passwordField: 'password',
             passReqToCallback: true,
         },
-        function(req, username, password, done) {
+        (req, username, password, done) => {
             MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(resultSet => {
 
                 let user = resultSet.rows[0];
@@ -58,7 +58,7 @@ module.exports = passport => {
             usernameField: 'username',
             passwordField: 'password',
             passReqToCallback: true // allows us to pass back the entire request to the callback
-        }, function (req, username, password, done) {
+        }, (req, username, password, done) => {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
             MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(resultSet => {
@@ -72,23 +72,23 @@ module.exports = passport => {
                         password: bcrypt.hashSync(password, null, null),  // use the generateHash function in our user model
                         firstname: req.body.firstname,
                         lastname: req.body.lastname,
-                        role: 'S'
+                        role: 's'
                     };
 
-                    let insertQuery = "INSERT INTO users ( email, password, firstname, lastname ) values (?,?,?,?)";
+                    let insertQuery = "INSERT INTO users ( email, password, firstname, lastname, role ) values (?,?,?,?,?)";
 
-                    MySQLDatabase.setData(insertQuery, [newUserMysql.username, newUserMysql.password, newUserMysql.firstname, newUserMysql.lastname]).then(resultSet => {
+                    MySQLDatabase.setData(insertQuery, [newUserMysql.username, newUserMysql.password, newUserMysql.firstname, newUserMysql.lastname, newUserMysql.role]).then(resultSet => {
                         newUserMysql.id = resultSet.insertId;
 
                         return done(null, newUserMysql);
 
-                    }).catch(function(error) {
+                    }).catch(error => {
                         // Error from inserting new user into users table
                         console.log(error);
                         return done(error);
                     });
                 }
-            }).catch(function (error) {
+            }).catch(error => {
                 // Error from querying if user exists
                 return done(error);
             });
