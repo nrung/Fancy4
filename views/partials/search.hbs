@@ -15,20 +15,19 @@
         <div class="input-group">
             <div class="input-group-btn search-panel">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span id="search_concept">Title</span> <span class="caret"></span>
+                    <span id="search_concept">Filter by</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#title"><span class="glyphicon glyphicon-text-size"><i class="fa fa-angle-double-right"></i> Title</a></li>
-                    <li><a href="#keyword"><span class="glyphicon glyphicon-map-marker"><i class="fa fa-angle-double-right"></i> Keyword</a></li>
-                    <li><a href="#author"><span class="glyphicon glyphicon-user"></span><i class="fa fa-angle-double-right"></i>  Author</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-text-size"/> Title</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-map-marker"/> Author</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-user"/> Keywords</a></li>
                 </ul>
             </div>
-            <input type="hidden" name="search_param" value="name" id="search_param">
-            <input type="text" class="form-control" name="q" placeholder="Search.." id="search_key" value="">
+            <input type="hidden" name="search_param" value="all" id="search_param">
+            <input type="text" class="form-control" name="x" placeholder="Search term...">
             <span class="input-group-btn">
-                      <a class="btn btn-default text-muted" href="http://adminlte.dev/user/item" title="Clear"><i class="glyphicon glyphicon-remove"></i> </a>
-                      <button class="btn btn-info" type="submit">Search</button>
-                    </span>
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
         </div>
     </div>
     <div class="col-sm-3">
@@ -42,5 +41,4 @@
             </ul>
         </div>
     </div>
-    <!-- /.col-lg-12 -->
 </div>
