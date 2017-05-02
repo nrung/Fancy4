@@ -8,7 +8,5 @@ a {
 }
 
 .login {
-    margin: auto;
-    border: 1px solid dodgerblue;
-    border-radius: 7px;
+    margin-top: 5em;
 }

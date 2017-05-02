@@ -35,8 +35,6 @@ app.engine('hbs', exphbs({
     partialsDir: path.join(__dirname, '/views/partials/')
 }));
 
-console.log('PATH: ' + path.join(__dirname, '/views/partials/'));
-
 app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public
