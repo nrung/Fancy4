@@ -37,7 +37,7 @@ router.get('/index', isLoggedIn, (req, res) => {
 
     let papers = Business.getAllPapers().then(resultSet => {
 
-        res.render('index', {title: "Papers Page", user: req.user, papers: resultSet, hideNav: true});
+        res.render('index', {title: "Papers Page", user: req.user, papers: resultSet});
     }).catch(error => {
 
         console.dir(error);

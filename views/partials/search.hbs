@@ -1,0 +1,46 @@
+<div class="row pad">
+    <div class="col-sm-3 col-sm-offset-9">
+        <div class="dropdown">
+            <button class="btn btn-basic btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Logged In As: {{user.rec}}
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Account</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="well row">
+    <div class="col-sm-6 col-sm-offset-3" >
+        <div class="input-group">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span id="search_concept">Title</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#title"><span class="glyphicon glyphicon-text-size"><i class="fa fa-angle-double-right"></i> Title</a></li>
+                    <li><a href="#keyword"><span class="glyphicon glyphicon-map-marker"><i class="fa fa-angle-double-right"></i> Keyword</a></li>
+                    <li><a href="#author"><span class="glyphicon glyphicon-user"></span><i class="fa fa-angle-double-right"></i>  Author</a></li>
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="name" id="search_param">
+            <input type="text" class="form-control" name="q" placeholder="Search.." id="search_key" value="">
+            <span class="input-group-btn">
+                      <a class="btn btn-default text-muted" href="http://adminlte.dev/user/item" title="Clear"><i class="glyphicon glyphicon-remove"></i> </a>
+                      <button class="btn btn-info" type="submit">Search</button>
+                    </span>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="dropdown">
+            <button class="btn btn-primary btn-block dropdown-toggle" type="button" data-toggle="dropdown">-Filter Papers-
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">HTML</a></li>
+                <li><a href="#">CSS</a></li>
+                <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>

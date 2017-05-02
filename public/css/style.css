@@ -10,3 +10,9 @@ a {
 .login {
     margin-top: 5em;
 }
+.padTop{
+    padding-top: 50px;
+}
+.pad{
+    padding-bottom: 20px;
+}
