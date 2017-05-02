@@ -10,7 +10,8 @@ INSERT INTO Users (id,firstName,lastName,email,role,password)
     (1,'Andrew','Diana','axd7832@rit.edu','a','hashpass'),
     (2,'Nick','Rung','email@rit.edu','f','hashpass'),
     (3,'Brendon','Strowe','email@rit.edu','s','hashpass'),
-    (4,'Brendan','McGeever','email@rit.edu','a','hashpass');
+    (4,'Brendan','McGeever','email@rit.edu','a','hashpass'),
+    (5,'userlast','userfirst','username@rit.edu','s','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha');
 
 	/*Insert into Papers table*/
 
