@@ -21,7 +21,8 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/profile',
+    //Changed to index to view papers
+    successRedirect: '/index',
     failureRedirect: '/login',
     failureFlash: true
 }));
@@ -30,11 +31,20 @@ router.get('/profile', isLoggedIn, (req, res) => {
     res.render('profile', {user: req.user});
 });
 
-router.get('/papers', isLoggedIn, (req, res) => {
+router.get('/index', isLoggedIn, (req, res) => {
 
     let Business = new BusinessIndex();
 
-    res.render('papers', {title: "Papers", user: req.user, papers: Business.getAllPapers()});
+    let papers = Business.getAllPapers().then(resultSet => {
+
+        res.render('index', {title: "Papers Page", user: req.user, papers: resultSet, hideNav: true});
+    }).catch(error => {
+
+        console.dir(error);
+        res.render('index', {title: "Papers Page", user: req.user, papers: [], hideNav: true});
+    });
+
+
 });
 
 router.get('/logout', (req, res) => {

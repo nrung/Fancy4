@@ -9,12 +9,9 @@
  */
 
 let MySQLDatabase = require('../db/MySQLDatabase.js');
-
-// Make the "module" (Class/Object type) available for use in other files.
-module.exports = Paper;
-
 class Paper {
-
+// Make the "module" (Class/Object type) available for use in other files.
+   // module.exports = Paper;
     /**
      * Default constructor
      *
@@ -52,7 +49,7 @@ class Paper {
                     thisPaper.title = resultSet.rows[0].title;
                     thisPaper.abstract = resultSet.rows[0].abstract;
                     thisPaper.citation = resultSet.rows[0].citation;
-
+                    console.log(thisPaper);
                     resolve();
                 }
                 reject("PAPER NOT FOUND");
@@ -139,3 +136,5 @@ class Paper {
     };
 
 }
+// Make the "module" (Class/Object type) available for use in other files.
+module.exports = Paper;

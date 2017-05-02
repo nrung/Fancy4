@@ -23,7 +23,7 @@ module.exports = passport => {
     passport.deserializeUser((id, done) => {
 
         MySQLDatabase.getData("SELECT * FROM users WHERE id = ?", [id]).then(resultSet => {
-            console.dir(resultSet.rows[0]);
+
             done(null, resultSet.rows[0]);
         }).catch(error => {
             done(error);

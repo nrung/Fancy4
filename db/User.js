@@ -58,7 +58,6 @@ User.prototype.fetch = function() {
 				thisUser.firstName = resultSet.rows[0].firstName;
 				thisUser.lastName = resultSet.rows[0].lastName;
 				thisUser.email = resultSet.rows[0].email;
-
 				resolve();
 			}
 			reject("USER NOT FOUND");
