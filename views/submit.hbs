@@ -1,0 +1,23 @@
+{{> userType}}
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <form action="/submit" method="POST">
+            <div class="form-group">
+                <label class="col-form-label">
+                    Paper Title
+                </label>
+                <input name="title" class="form-control" type="text"/>
+                <label class="col-form-label">
+                    Paper Citation
+                </label>
+                <input name="citation" class="form-control" type="text"/>
+                <label class="col-form-label">
+                    Paper Abstract
+                </label>
+                <textarea name="abstract" class="form-control" id="exampleTextarea" rows="3"></textarea>
+                <button class="btn btn-info" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -12,14 +12,14 @@ let mysql = require('mysql');
 
 /**
  * Connection pool object
- * @type {mysql.Pool}
+ * @type {Pool}
  */
 let pool = mysql.createPool({
-	connectionLimit	: 1024,
-	host			: process.env.DB_HOST,
-	user			: process.env.DB_USERNAME,
-	password		: process.env.DB_PASSWORD,
-	database		: process.env.DB_DATABASE
+    connectionLimit    : 1024,
+    host            : process.env.DB_HOST,
+    user            : process.env.DB_USERNAME,
+    password        : process.env.DB_PASSWORD,
+    database        : process.env.DB_DATABASE
 });
 
 /**
@@ -31,40 +31,39 @@ let pool = mysql.createPool({
  * @param {array} values - A list of values to be bound to the precompiled SQL Statement.
  * @return {Promise} Whether or not establishing a connection and retrieving the data was successful or not.
  */
-exports.getData = function (sql, values) {
+exports.getData = (sql, values) => {
 
-	// If an error is encountered, the Promise will be rejected with an explanitory error.
-	//  Else, it will be resolved with the resulting data from the database query.
-	return new Promise(function(resolve, reject) {
+    // If an error is encountered, the Promise will be rejected with an explanitory error.
+    //  Else, it will be resolved with the resulting data from the database query.
+    return new Promise((resolve, reject) => {
 
-		// Attempt to connect using connection pool.
-		pool.getConnection(function(connectionError, connection) {
-			if (connectionError) {
-				console.log("ERROR: " + connectionError.code);
-				reject("Error connecting to database. Message: " + connectionError.code);
-			}
+        // Attempt to connect using connection pool.
+        pool.getConnection((connectionError, connection) => {
+            if (connectionError) {
+                console.log("ERROR: " + connectionError.code);
+                reject("Error connecting to database. Message: " + connectionError.code);
+            }
 
-			console.log('connected as id ' + connection.threadId);
+            console.log('connected as id ' + connection.threadId);
 
-			// Perform SQL query.
-			connection.query(sql, values, function(queryError, results, fields) {
-				connection.release();
+            // Perform SQL query.
+            connection.query(sql, values, (queryError, results, fields) => {
+                connection.release();
 
-				if (queryError) {
-					reject("Error querying database. Message: " + queryError.code);
-				}
+                if (queryError) {
+                    reject("Error querying database. Message: " + queryError.code);
+                }
 
-				// Information provided from Query.
-				let resultSet = {
-					headers : fields,
-					rows : results
-				};
-				resolve(resultSet);
-			});
-		});
-	});
+                // Information provided from Query.
+                let resultSet = {
+                    headers : fields,
+                    rows : results
+                };
+                resolve(resultSet);
+            });
+        });
+    });
 };
-
 
 /**
  * This method will update the database using a precompiled SQL Statement.
@@ -73,35 +72,36 @@ exports.getData = function (sql, values) {
  * @param {array} values - A list of values to be bound to the precompiled SQL Statement.
  * @return {Promise} whether or not the command execution was successful.
  */
-exports.setData = function (sql, values) {
+exports.setData = (sql, values) => {
 
-	// If an error is encountered, the Promise will be rejected with an explanitory error.
-	//  Else, it will be resolved with the resulting data from the database query.
-	return new Promise(function(resolve, reject) {
+    // If an error is encountered, the Promise will be rejected with an explanitory error.
+    //  Else, it will be resolved with the resulting data from the database query.
+    return new Promise((resolve, reject) => {
 
-		// Attempt to connect using connection pool.
-		pool.getConnection(function(connectionError, connection) {
-			if (connectionError) {
-				reject("Error connecting to database. Message: " + connectionError.code);
-			}
+        // Attempt to connect using connection pool.
+        pool.getConnection((connectionError, connection) => {
+            if (connectionError) {
+                reject("Error connecting to database. Message: " + connectionError.code);
+            }
 
-			console.log('connected as id ' + connection.threadId);
+            console.log('connected as id ' + connection.threadId);
 
-			// Perform SQL update.
-			connection.query(sql, values, function(updateError, results) {
-				connection.release();
+            // Perform SQL update.
+           connection.query(sql, values, (updateError, results) => {
+                connection.release();
 
-				if (updateError) {
-					reject("Error updating the database. Message: " + updateError.code);
-				}
+                console.dir(updateError);
+                if (updateError) {
+                    reject("Error updating the database. Message: " + updateError.code);
+                }
 
-				// Information provided from Update.
-				let resultSet = {
-					insertId : results.insertId,
-					rowsAffected : results.affectedRows
-				};
-				resolve(resultSet);
-			});
-		});
-	});
+                // Information provided from Update.
+                let resultSet = {
+                    insertId : results.insertId,
+                    rowsAffected : results.affectedRows
+                };
+                resolve(resultSet);
+            });
+        });
+    });
 };

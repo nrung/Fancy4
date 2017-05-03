@@ -10,7 +10,9 @@ INSERT INTO Users (id,firstName,lastName,email,role,password)
     (1,'Andrew','Diana','axd7832@rit.edu','a','hashpass'),
     (2,'Nick','Rung','email@rit.edu','f','hashpass'),
     (3,'Brendon','Strowe','email@rit.edu','s','hashpass'),
-    (4,'Brendan','McGeever','email@rit.edu','a','hashpass');
+    (4,'Brendan','McGeever','email@rit.edu','a','hashpass'),
+    (5,'userlast','userfirst','username@rit.edu','s','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha'),
+    (6,'Flo','Pro','flobot@rit.edu','f','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha');
 
 	/*Insert into Papers table*/
 
@@ -19,7 +21,13 @@ INSERT INTO Papers (id,title,abstract,citation)
     (1,'Andrew Does Research', 'Andrew Diana reads a textbook','citation?'),
     (2,'Nick Does Research', 'Nick Rung reads a textbook','citation?'),
     (3,'Brendon Does Research', 'Brendon Strowe reads a textbook','citation?'),
-    (4,'Brendan Does Research', 'Brendan McGeever reads a textbook','citation?');
+    (4,'Brendan Does Research', 'Brendan McGeever reads a textbook','citation?'),
+    (5,'Erica Does Research', 'Erica Parker reads a textbook','citation?'),
+    (6,'Jimmy Does Research', 'Jimmy John reads a textbook','citation?'),
+    (7,'Peter Does Research', 'Peter Potter reads a textbook','citation?'),
+    (8,'Jacob Does Research', 'Jacob Risenger reads a textbook','citation?'),
+	(9,'Jason Does Research', 'Jason Lamb reads a textbook','citation?'),
+	(10,'Erin Does Research', 'Erin McGeever reads a textbook','citation?');
 
 /*Insert into Authorship table*/
 INSERT INTO Authorship (userId,paperId)
@@ -52,3 +60,4 @@ INSERT INTO SavedPapers (userId, paperId)
     (1,3),
     (1,2),
     (1,4);
+

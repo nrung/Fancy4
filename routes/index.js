@@ -2,66 +2,96 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-const Paper = require('../db/Paper.js');
+const Paper = require('../db/Paper');
+const PaperKeywords = require('../db/PaperKeywords');
+const BusinessIndex = require('../business/BusinessIndex');
+
+// RowDataPacket {
+//     id: 5,
+//         firstName: 'userlast',
+//         lastName: 'userfirst',
+//         email: 'username@rit.edu',
+//         role: 's',
+//         password: '$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha' }
+
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-    res.render('index.hbs', {title: 'Express'});
+router.get('/', (req, res) => {
+    res.redirect('/login');
 });
 
-/* GET a Paper by its id */
-router.get('/papers/:id', isLoggedIn, function (request, response) {
-	let requestedPaper = new Paper(request.params.id);
+router.get('/login', (req, res) => {
 
-	// Fetch the requested paper. Respond with data about the paper.
-	//  If there is an error, catch it and report it.
-	requestedPaper.fetch().then(function() {
-		response.send(requestedPaper.id + " " + requestedPaper.title);
-	}).catch(function(error) {
-		response.send(error);
-	});
-});
-
-/* GET a Paper's keywords by its id */
-router.get('/papers/:id/keywords', isLoggedIn, function (request, response) {
-	let requestedPaperKeywords = new PaperKeywords(request.params.id);
-
-	console.log("REQUEST PAPER BY ID");
-
-	// Fetch the requested paper. Respond with data about the paper.
-	//  If there is an error, catch it and report it.
-	requestedPaperKeywords.fetch().then(function() {
-		console.log("FETCHED PAPER BY ID");
-		response.send(requestedPaperKeywords.paperId + " " + requestedPaperKeywords.keywords);
-	}).catch(function(error) {
-		response.send(error);
-	});
-});
-
-router.get('/login', function (req, res) {
-	res.render('login.hbs', {message: req.flash('loginMessage')});
+    if(req.isAuthenticated()) {
+        res.redirect()
+    } else {
+        res.render('login', {hideNav: true, message: req.flash('loginMessage')});
+    }
 });
 
 router.post('/login', passport.authenticate('local-login', {
-	successRedirect: '/profile',
-	failureRedirect: '/login',
-	failureFlash: true
+    //Changed to index to view papers
+    successRedirect: '/index',
+    failureRedirect: '/login',
+    failureFlash: true
 }));
 
-router.get('/profile', isLoggedIn, function (req, res) {
-    res.render('profile.hbs', {user: req.user});
+router.get('/profile', isLoggedIn, (req, res) => {
+    res.render('profile', {user: req.user});
+});
+router.get('/insertpaper', isLoggedIn, (req, res) => {
+    res.render('insertpaper', {user: req.user});
 });
 
-router.get('/logout', function(req, res) {
+router.post('/submit', isLoggedIn, (req, res) => {
+
+    let title = req.body.title;
+    let abstract = req.body.abstract;
+    let citation = req.body.citation;
+
+    console.dir({title: title, abstract: abstract, citation: citation});
+
+    let Business = new BusinessIndex();
+
+    Business.submitPaper(title, abstract, citation).then(resultSet => {
+
+        console.dir(resultSet);
+        res.render('submit', {title: "Paper Submission", user: req.user});
+    }).catch(error => {
+
+        console.dir(error);
+        res.redirect('/');
+    });
+});
+
+router.get('/submit', isLoggedIn, (req, res) => {
+    res.render('submit', {title: "Paper Submission", user: req.user})
+});
+
+router.get('/index', isLoggedIn, (req, res) => {
+    console.dir(req.user);
+    let Business = new BusinessIndex();
+
+    let papers = Business.getAllPapers().then(resultSet => {
+
+        res.render('index', {title: "Papers Page", user: req.user, papers: resultSet});
+    }).catch(error => {
+
+        console.dir(error);
+        res.render('index', {title: "Papers Page", user: req.user, papers: [], hideNav: true});
+    });
+});
+
+router.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
 });
 
-router.get('/signup', function(req, res) {
-	if (req.isAuthenticated()) {
-		res.redirect('/');
-	} else {
-        res.render('signup.hbs', {message: req.flash('signupMessage')});
+router.get('/signup', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.redirect('/');
+    } else {
+        res.render('signup', {message: req.flash('signupMessage')});
     }
 });
 
@@ -71,10 +101,25 @@ router.post('/signup', passport.authenticate('local-signup', {
     failureFlash: true,
 }));
 
+router.get('*', (req, res) => {
+
+    res.send('<h1 style="margin: 0 auto; font-size: 80vh; text-align: center;" >404</h1><h5 style="margin: 0 auto; text-align: center;">Not found.</h5>');
+});
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
     res.redirect('/');
+}
+
+function checkRole(role) {
+    return (req, res, next) => {
+        if(req.user.role === role) {
+            next();
+        } else {
+            res.redirect(401, '/');
+        }
+    }
 }
 
 module.exports = router;
