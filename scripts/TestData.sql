@@ -60,3 +60,4 @@ INSERT INTO SavedPapers (userId, paperId)
     (1,3),
     (1,2),
     (1,4);
+
