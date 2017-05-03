@@ -79,8 +79,6 @@ router.get('/index', isLoggedIn, (req, res) => {
         console.dir(error);
         res.render('index', {title: "Papers Page", user: req.user, papers: [], hideNav: true});
     });
-
-
 });
 
 router.get('/logout', (req, res) => {
