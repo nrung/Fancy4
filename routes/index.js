@@ -49,15 +49,18 @@ router.post('/submit', isLoggedIn, (req, res) => {
     let abstract = req.body.abstract;
     let citation = req.body.citation;
 
+    console.dir({title: title, abstract: abstract, citation: citation});
+
     let Business = new BusinessIndex();
 
-    let papers = Business.submitPaper(title, abstract, citation).then(resultSet => {
+    Business.submitPaper(title, abstract, citation).then(resultSet => {
 
-        res.render('submit', {title: "Paper Submission", user: req.user, papers: resultSet});
+        console.dir(resultSet);
+        res.render('submit', {title: "Paper Submission", user: req.user});
     }).catch(error => {
 
         console.dir(error);
-        res.render('submit', {title: "Paper Submission", user: req.user, papers: [], hideNav: true});
+        res.redirect('/');
     });
 
 

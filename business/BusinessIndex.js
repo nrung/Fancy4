@@ -36,15 +36,14 @@ class BusinessIndex {
     submitPaper(title, abstract, citation) {
 
         return new Promise((resolve, reject) => {
+            let paper = new Paper(null, title, abstract, citation);
 
-            let id = null;
-            title = '';
-            abstract = '';
-            citation = '';
+            paper.post().then(resultSet => {
 
-            let paper = new Paper(id, title, abstract, citation);
-
-            paper.post();
+                resolve(resultSet);
+            }).catch(error => {
+                reject(error);
+            });
         });
     }
 }
