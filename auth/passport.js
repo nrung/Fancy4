@@ -41,13 +41,10 @@ module.exports = passport => {
                 let user = resultSet.rows[0];
 
                 if (!user) {
-                    console.log('no user');
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
+                    return done(null, false, req.flash('loginMessage', 'Invalid credentials.'));
                 }
                 if (!bcrypt.compareSync(password, user.password)) {
-                    console.log('bad pass');
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-
+                    return done(null, false, req.flash('loginMessage', 'Invalid credentials.'));
                 }
                 return done(null, user);
             });
