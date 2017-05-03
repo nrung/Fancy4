@@ -36,7 +36,7 @@ class BusinessIndex {
     submitPaper(title, abstract, citation) {
 
         return new Promise((resolve, reject) => {
-            let paper = new Paper(null, title, abstract, citation);
+            let paper = new Paper(-1, title, abstract, citation);
 
             paper.post().then(resultSet => {
 

@@ -105,6 +105,7 @@ class Paper {
 
                 resolve(resultSet.rowsAffected);
             }).catch(error => {
+                console.dir(error);
                 reject(error);
             });
         });
