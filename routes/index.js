@@ -104,7 +104,7 @@ router.post('/signup', passport.authenticate('local-signup', {
 
 router.get('*', (req, res) => {
 
-    res.send('<h1 style="margin: 0 auto; font-size: 50em; text-align: center;" >404</h1><h5 style="margin: 0 auto; text-align: center;">Not found.</h5>');
+    res.send('<h1 style="margin: 0 auto; font-size: 80vh; text-align: center;" >404</h1><h5 style="margin: 0 auto; text-align: center;">Not found.</h5>');
 });
 
 function isLoggedIn(req, res, next) {
