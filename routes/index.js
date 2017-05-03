@@ -6,6 +6,15 @@ const Paper = require('../db/Paper');
 const PaperKeywords = require('../db/PaperKeywords');
 const BusinessIndex = require('../business/BusinessIndex');
 
+// RowDataPacket {
+//     id: 5,
+//         firstName: 'userlast',
+//         lastName: 'userfirst',
+//         email: 'username@rit.edu',
+//         role: 's',
+//         password: '$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha' }
+
+
 /* GET home page. */
 router.get('/', (req, res) => {
     res.redirect('/login');
@@ -29,6 +38,9 @@ router.post('/login', passport.authenticate('local-login', {
 
 router.get('/profile', isLoggedIn, (req, res) => {
     res.render('profile', {user: req.user});
+});
+router.get('/insertpaper', isLoggedIn, (req, res) => {
+    res.render('insertpaper', {user: req.user});
 });
 
 router.post('/submit', isLoggedIn, (req, res) => {
@@ -56,7 +68,7 @@ router.get('/submit', isLoggedIn, (req, res) => {
 });
 
 router.get('/index', isLoggedIn, (req, res) => {
-
+    console.dir(req.user);
     let Business = new BusinessIndex();
 
     let papers = Business.getAllPapers().then(resultSet => {
