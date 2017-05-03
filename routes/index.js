@@ -31,6 +31,30 @@ router.get('/profile', isLoggedIn, (req, res) => {
     res.render('profile', {user: req.user});
 });
 
+router.post('/submit', isLoggedIn, (req, res) => {
+
+    let title = req.body.title;
+    let abstract = req.body.abstract;
+    let citation = req.body.citation;
+
+    let Business = new BusinessIndex();
+
+    let papers = Business.submitPaper(title, abstract, citation).then(resultSet => {
+
+        res.render('submit', {title: "Paper Submission", user: req.user, papers: resultSet});
+    }).catch(error => {
+
+        console.dir(error);
+        res.render('submit', {title: "Paper Submission", user: req.user, papers: [], hideNav: true});
+    });
+
+
+});
+
+router.get('/submit', isLoggedIn, (req, res) => {
+    res.render('submit', {title: "Paper Submission", user: req.user})
+});
+
 router.get('/index', isLoggedIn, (req, res) => {
 
     let Business = new BusinessIndex();

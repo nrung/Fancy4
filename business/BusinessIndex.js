@@ -32,6 +32,21 @@ class BusinessIndex {
             });
         });
     }
+
+    submitPaper(title, abstract, citation) {
+
+        return new Promise((resolve, reject) => {
+
+            let id = null;
+            title = '';
+            abstract = '';
+            citation = '';
+
+            let paper = new Paper(id, title, abstract, citation);
+
+            paper.post();
+        });
+    }
 }
 
 module.exports = BusinessIndex;
