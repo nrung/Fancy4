@@ -98,13 +98,14 @@ class Paper {
         let thisPaper = this;
 
         return new Promise((resolve, reject) => {
-            MySQLDatabase.setData("INSERT INTO Papers (title, abstract, description) " +
+            MySQLDatabase.setData("INSERT INTO Papers (title, abstract, citation) " +
                 " VALUES (?, ?, ?) ",
                 [thisPaper.title, thisPaper.abstract, thisPaper.citation]
             ).then(resultSet => {
 
                 resolve(resultSet.rowsAffected);
             }).catch(error => {
+                console.dir(error);
                 reject(error);
             });
         });

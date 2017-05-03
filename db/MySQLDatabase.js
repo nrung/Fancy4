@@ -90,6 +90,7 @@ exports.setData = (sql, values) => {
            connection.query(sql, values, (updateError, results) => {
                 connection.release();
 
+                console.dir(updateError);
                 if (updateError) {
                     reject("Error updating the database. Message: " + updateError.code);
                 }

@@ -62,8 +62,6 @@ router.post('/submit', isLoggedIn, (req, res) => {
         console.dir(error);
         res.redirect('/');
     });
-
-
 });
 
 router.get('/submit', isLoggedIn, (req, res) => {
