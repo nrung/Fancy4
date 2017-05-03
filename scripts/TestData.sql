@@ -11,7 +11,8 @@ INSERT INTO Users (id,firstName,lastName,email,role,password)
     (2,'Nick','Rung','email@rit.edu','f','hashpass'),
     (3,'Brendon','Strowe','email@rit.edu','s','hashpass'),
     (4,'Brendan','McGeever','email@rit.edu','a','hashpass'),
-    (5,'userlast','userfirst','username@rit.edu','s','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha');
+    (5,'userlast','userfirst','username@rit.edu','s','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha'),
+    (6,'Flo','Pro','flobot@rit.edu','f','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha');
 
 	/*Insert into Papers table*/
 
@@ -59,3 +60,4 @@ INSERT INTO SavedPapers (userId, paperId)
     (1,3),
     (1,2),
     (1,4);
+
