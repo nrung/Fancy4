@@ -33,6 +33,20 @@ class BusinessIndex {
         });
     }
 
+    getPaper(id) {
+
+        return new Promise((resolve, reject) => {
+            let paper = new Paper(id, null, null, null);
+
+            paper.fetch().then(resultSet => {
+
+                resolve(resultSet);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    }
+
     submitPaper(title, abstract, citation) {
 
         return new Promise((resolve, reject) => {
