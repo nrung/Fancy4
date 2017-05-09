@@ -17,13 +17,17 @@ const BusinessIndex = require('../business/BusinessIndex');
 
 /* GET home page. */
 router.get('/', (req, res) => {
-    res.redirect('/login');
+    if(req.isAuthenticated()) {
+        res.redirect('/papers');
+    } else {
+        res.redirect('/login');
+    }
 });
 
 router.get('/login', (req, res) => {
 
     if(req.isAuthenticated()) {
-        res.redirect()
+        res.redirect('/papers');
     } else {
         res.render('login', {hideNav: true, message: req.flash('loginMessage')});
     }
@@ -72,7 +76,7 @@ router.get('/index', isLoggedIn, (req, res) => {
     console.dir(req.user);
     let Business = new BusinessIndex();
 
-    let papers = Business.getAllPapers().then(resultSet => {
+    Business.getAllPapers().then(resultSet => {
 
         res.render('index', {title: "Papers Page", user: req.user, papers: resultSet});
     }).catch(error => {
@@ -103,7 +107,7 @@ router.post('/signup', passport.authenticate('local-signup', {
 
 router.get('*', (req, res) => {
 
-    res.send('<h1 style="margin: 0 auto; font-size: 80vh; text-align: center;" >404</h1><h5 style="margin: 0 auto; text-align: center;">Not found.</h5>');
+    res.send('<h1 style="margin: 0 auto; font-size: 80vh; text-align: center;">404</h1><h5 style="margin: 0 auto; text-align: center;">Not found.</h5>');
 });
 
 function isLoggedIn(req, res, next) {

@@ -36,7 +36,7 @@ class BusinessIndex {
     getPaper(id) {
 
         return new Promise((resolve, reject) => {
-            let paper = new Paper(id, null, null, null);
+            let paper = new Paper(id);
 
             paper.fetch().then(resultSet => {
 

@@ -5,10 +5,12 @@
  * ISTE 330 01
  * Team 11 (Fancy 4)
  * @author Brendon Strowe
- * @version 16 of April 2017
+ * @version 2 of May 2017
+ * @modified Nick Rung
  */
 
 let MySQLDatabase = require('../db/MySQLDatabase.js');
+
 class Paper {
 // Make the "module" (Class/Object type) available for use in other files.
    // module.exports = Paper;
@@ -49,10 +51,10 @@ class Paper {
                     thisPaper.title = resultSet.rows[0].title;
                     thisPaper.abstract = resultSet.rows[0].abstract;
                     thisPaper.citation = resultSet.rows[0].citation;
-                    console.log(thisPaper);
                     resolve();
+                } else {
+                    reject("PAPER NOT FOUND");
                 }
-                reject("PAPER NOT FOUND");
             }).catch(error => {
                 reject(error);
             });
