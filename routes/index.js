@@ -93,6 +93,18 @@ router.get('/paper/:id', (req, res) => {
     });
 });
 
+router.delete('/paper/:id', (req, res) => {
+    let id = req.params.id;
+
+    Business.getPaper(id).then(result => {
+        console.dir(result);
+        res.render('paper', {paper: result});
+    }).catch(error => {
+        console.dir(error);
+        res.status(500);
+    });
+});
+
 router.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
@@ -113,7 +125,7 @@ router.post('/signup', passport.authenticate('local-signup', {
 }));
 
 router.get('*', (req, res) => {
-    res.render('/404');
+    res.render('404');
 });
 
 function isLoggedIn(req, res, next) {
