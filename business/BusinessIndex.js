@@ -10,7 +10,7 @@ class BusinessIndex {
     getAllPapers() {
 
         return new Promise((resolve, reject) => {
-            MySQLDatabase.getData("SELECT * FROM papers", []).then(resultSet => {
+            MySQLDatabase.getData("SELECT * FROM papers").then(resultSet => {
 
                 let Papers = [];
 

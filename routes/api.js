@@ -31,7 +31,7 @@ router.get('/:id', function (request, response) {
 
 /* GET a Paper by its id */
 router.get('/papers/:id', isLoggedIn, (request, response) => {
-    let requestedPaper = new Paper(request.params.id);
+    let requestedPaper = new Paper(request.params.id, "", "", "");
 
     // Fetch the requested paper. Respond with data about the paper.
     //  If there is an error, catch it and report it.
