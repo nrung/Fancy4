@@ -87,9 +87,12 @@ router.get('/papers', isLoggedIn, (req, res) => {
 router.get('/paper/:id',  (req, res) => {
     let id = req.params.id;
 
-    const paper = Business.getPaper(id);
-
-    res.render('paper', {user: req.user, paper: paper});
+    Business.getPaper(id).then(result => {
+        res.render('paper', {user: req.user, paper: result});
+    }).catch(err => {
+        console.dir(err);
+        res.status(500);
+    });
 });
 
 router.get('/logout', (req, res) => {
