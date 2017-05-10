@@ -39,7 +39,6 @@ class BusinessIndex {
             let paper = new Paper(id);
 
             paper.fetch().then(resultSet => {
-
                 resolve(resultSet);
             }).catch(error => {
                 reject(error);

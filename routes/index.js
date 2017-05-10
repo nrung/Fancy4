@@ -32,9 +32,7 @@ router.get('/login', (req, res) => {
         res.render('login', {hideNav: true, message: req.flash('loginMessage')});
     }
 });
-router.get('/paper/:id', (req, res) => {
 
-});
 router.post('/login', passport.authenticate('local-login', {
     //Changed to papers to view papers
     successRedirect: '/papers',
@@ -72,7 +70,6 @@ router.get('/submit', isLoggedIn, (req, res) => {
 });
 
 router.get('/papers', isLoggedIn, (req, res) => {
-    console.dir(req.user);
 
     Business.getAllPapers().then(resultSet => {
 
@@ -84,13 +81,14 @@ router.get('/papers', isLoggedIn, (req, res) => {
     });
 });
 
-router.get('/paper/:id',  (req, res) => {
+router.get('/paper/:id', (req, res) => {
     let id = req.params.id;
 
     Business.getPaper(id).then(result => {
-        res.render('paper', {user: req.user, paper: result});
-    }).catch(err => {
-        console.dir(err);
+        console.dir(result);
+        res.render('paper', {paper: result});
+    }).catch(error => {
+        console.dir(error);
         res.status(500);
     });
 });
