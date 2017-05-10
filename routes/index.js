@@ -18,7 +18,7 @@ const Business = new BusinessIndex();
 /* GET home page. */
 router.get('/', (req, res) => {
     if(req.isAuthenticated()) {
-        res.redirect('/index');
+        res.redirect('/papers');
     } else {
         res.redirect('/login');
     }
@@ -37,7 +37,7 @@ router.get('/paper/:id', (req, res) => {
 });
 router.post('/login', passport.authenticate('local-login', {
     //Changed to index to view papers
-    successRedirect: '/index',
+    successRedirect: '/papers',
     failureRedirect: '/login',
     failureFlash: true
 }));
@@ -71,16 +71,16 @@ router.get('/submit', isLoggedIn, (req, res) => {
     res.render('submit', {title: "Paper Submission", user: req.user})
 });
 
-router.get('/index', isLoggedIn, (req, res) => {
+router.get('/papers', isLoggedIn, (req, res) => {
     console.dir(req.user);
 
     Business.getAllPapers().then(resultSet => {
 
-        res.render('index', {title: "Papers Page", user: req.user, papers: resultSet});
+        res.render('papers', {title: "Papers Page", user: req.user, papers: resultSet});
     }).catch(error => {
 
         console.dir(error);
-        res.render('index', {title: "Papers Page", user: req.user, papers: [], hideNav: true});
+        res.render('papers', {title: "Papers Page", user: req.user, papers: [], hideNav: true});
     });
 });
 
@@ -90,7 +90,6 @@ router.get('/paper/:id',  (req, res) => {
     const paper = Business.getPaper(id);
 
     res.render('paper', {user: req.user, paper: paper});
-
 });
 
 router.get('/logout', (req, res) => {
