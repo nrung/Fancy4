@@ -32,7 +32,9 @@ router.get('/login', (req, res) => {
         res.render('login', {hideNav: true, message: req.flash('loginMessage')});
     }
 });
+router.get('/paper/:id', (req, res) => {
 
+});
 router.post('/login', passport.authenticate('local-login', {
     //Changed to index to view papers
     successRedirect: '/index',

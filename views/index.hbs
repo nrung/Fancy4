@@ -11,7 +11,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><h2>{{paper.title}}</h2></div>
                 <div class="panel-body"><p>{{paper.abstract}}</p></div>
-                <div class="panel-footer"><button type="button" class="btn btn-danger" onclick="viewPaper({{paper.id}})"> More Info</button></div>
+                <div class="panel-footer">
+                    <a class="btn btn-danger" href="/paper/{{paper.id}}"> More Info</a>
+                </div>
             </div>
         </div>
         <!-- /.col-md-3 -->
