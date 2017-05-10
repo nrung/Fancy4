@@ -36,7 +36,7 @@ router.get('/paper/:id', (req, res) => {
 
 });
 router.post('/login', passport.authenticate('local-login', {
-    //Changed to index to view papers
+    //Changed to papers to view papers
     successRedirect: '/papers',
     failureRedirect: '/login',
     failureFlash: true
