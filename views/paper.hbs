@@ -1,0 +1,22 @@
+{{> userType}}
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <form action="/submit" method="POST">
+            <div class="form-group">
+                <label class="col-form-label">
+                    Paper Title
+                </label>
+                <p name="title"type="text">{{paper.title}}<p/>
+                <label class="col-form-label">
+                    Paper Citation
+                </label>
+                <p name="citation">{{paper.citation}}</p>
+                <label class="col-form-label">
+                    Paper Abstract
+                </label>
+                <p>{{paper.abstract}}</p>
+            </div>
+        </form>
+    </div>
+</div>
