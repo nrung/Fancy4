@@ -11,7 +11,6 @@ class BusinessIndex {
 
         return new Promise((resolve, reject) => {
             MySQLDatabase.getData("SELECT * FROM papers").then(resultSet => {
-
                 let Papers = [];
 
                 resultSet.rows.forEach((paper, index) => {
@@ -31,7 +30,7 @@ class BusinessIndex {
                 reject(error);
             });
         });
-    }
+    };
 
     getPaper(id) {
 
@@ -44,7 +43,7 @@ class BusinessIndex {
                 reject(error);
             });
         });
-    }
+    };
 
     submitPaper(title, abstract, citation) {
 
@@ -52,13 +51,12 @@ class BusinessIndex {
             let paper = new Paper(-1, title, abstract, citation);
 
             paper.post().then(resultSet => {
-
                 resolve(resultSet);
             }).catch(error => {
                 reject(error);
             });
         });
-    }
+    };
 
     removePaper(id) {
 
@@ -66,13 +64,12 @@ class BusinessIndex {
             let paper = new Paper(id);
 
             paper.remove().then(resultSet => {
-
                 resolve(resultSet);
             }).catch(error => {
                 reject(error);
             });
         });
-    }
+    };
 }
 
 module.exports = BusinessIndex;
