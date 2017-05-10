@@ -18,3 +18,14 @@ a {
 .pad {
     padding-bottom: 20px;
 }
+
+h1.ErrorPage {
+    margin: 0 auto;
+    font-size: 50vh;
+    text-align: center;
+}
+
+h5.ErrorPage {
+    margin: 0 auto;
+    text-align: center;
+}
