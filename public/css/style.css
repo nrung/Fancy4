@@ -2,6 +2,7 @@ body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
 a {
     color: #00B7FF;
 }
@@ -9,9 +10,11 @@ a {
 .login {
     margin-top: 5em;
 }
-.padTop{
-    padding-top: 50px;
+
+.padTop {
+    padding-top: 25px;
 }
-.pad{
+
+.pad {
     padding-bottom: 20px;
 }
