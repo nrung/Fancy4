@@ -5,6 +5,8 @@ const MySQLDatabase = require('../db/MySQLDatabase.js');
 const User = require('../db/User.js');
 const Paper = require('../db/Paper.js');
 const PaperKeywords = require('../db/PaperKeywords');
+const BusinessAPI = require('../business/BusinessAPI');
+const Business = new BusinessAPI();
 
 /* GET users listing. */
 // router.get('/', function (req, res, next) {

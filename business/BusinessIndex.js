@@ -57,19 +57,6 @@ class BusinessIndex {
             });
         });
     };
-
-    removePaper(id) {
-
-        return new Promise((resolve, reject) => {
-            let paper = new Paper(id);
-
-            paper.remove().then(resultSet => {
-                resolve(resultSet);
-            }).catch(error => {
-                reject(error);
-            });
-        });
-    };
 }
 
 module.exports = BusinessIndex;
