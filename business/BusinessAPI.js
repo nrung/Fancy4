@@ -21,4 +21,4 @@ class BusinessAPI {
     };
 }
 
-module.exports = BusinessIndex;
+module.exports = BusinessAPI;
