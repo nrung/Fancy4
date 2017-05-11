@@ -75,13 +75,16 @@ function isLoggedIn(req, res, next) {
 }
 
 function checkRole(role) {
-	return (req, res, next) => {
-		if(req.user.role === role) {
-			next();
-		} else {
-			res.redirect(401, '/');
-		}
-	}
+    return (req, res, next) => {
+
+        if (typeof role === "string" && role === req.user.role) {
+            next();
+        } else if (typeof role === "object" && role.includes(req.user.role)) {
+            next();
+        } else {
+            res.redirect(401, '/');
+        }
+    };
 }
 
 module.exports = router;

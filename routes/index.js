@@ -17,7 +17,7 @@ const Business = new BusinessIndex();
 
 /* GET home page. */
 router.get('/', (req, res) => {
-    if(req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
         res.redirect('/papers');
     } else {
         res.redirect('/login');
@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
 
 router.get('/login', (req, res) => {
 
-    if(req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
         res.redirect('/papers');
     } else {
         res.render('login', {hideNav: true, message: req.flash('loginMessage')});
@@ -124,12 +124,15 @@ function isLoggedIn(req, res, next) {
 
 function checkRole(role) {
     return (req, res, next) => {
-        if(req.user.role === role) {
+
+        if (typeof role === "string" && role === req.user.role) {
+            next();
+        } else if (typeof role === "object" && role.includes(req.user.role)) {
             next();
         } else {
             res.redirect(401, '/');
         }
-    }
+    };
 }
 
 module.exports = router;
