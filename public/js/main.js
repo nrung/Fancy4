@@ -27,6 +27,8 @@ function removePaper(id) {
     });
 }
 
+
+
 /*
 * Change all of the h2 and p elements into text input fields for performing
 *  edits to a Paper on a Paper HTML Page.
@@ -62,4 +64,22 @@ function enterEditMode() {
 			});
 		}
 	);
+}
+function searchPapers(){
+    console.log("In Search Paper");
+    var type = $('#search_concept').text().substring(1);
+    var searchQuery = $('#searchQuery').val();
+    console.log(type);
+    console.log(searchQuery);
+
+    $.ajax({
+        url: '/api/search/${type}/${searchQuery}',
+        data: data,
+        success: updatePapers(),
+        //dataType: dataType
+    });
+}
+function updatePapers(){
+    $('#pageBody').empty;
+
 }

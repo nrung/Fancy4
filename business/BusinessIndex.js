@@ -6,7 +6,6 @@ const MySQLDatabase = require('../db/MySQLDatabase.js');
 const Paper = require('../db/Paper');
 
 class BusinessIndex {
-
     getAllPapers() {
 
         return new Promise((resolve, reject) => {
