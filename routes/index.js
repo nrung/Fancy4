@@ -83,10 +83,13 @@ router.get('/papers', (req, res) => {
 
 router.get('/paper/:id', (req, res) => {
     let id = req.params.id;
-
+    let admin = false;
+    if(req.user.role === 'a') {
+        admin = true;
+    }
     Business.getPaper(id).then(result => {
         console.dir(result);
-        res.render('paper', {paper: result});
+        res.render('paper', {paper: result, admin: admin});
     }).catch(error => {
         console.dir(error);
         res.status(500);

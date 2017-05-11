@@ -88,7 +88,8 @@ function searchPapers() {
             $('#papers').empty();
 
             if (papers.length) {
-                papers.forEach(function (paper) {
+                papers.forEach(function (item) {
+                    let paper = item.paper;
                     $("#papers").append(`<div class="col-md-3">\n<div class="panel panel-default">\n<div class="panel-heading"><h2>${paper.title}</h2></div>\n<div class="panel-body"><p>${paper.abstract}</p></div>\n<div class="panel-footer">\n<a class="btn btn-danger" href="/paper/${paper.id}"> More Info</a>\n</div>\n</div>\n</div>`);
                 });
             } else {
@@ -113,21 +114,18 @@ function resetSearch() {
             if (data.papers.length) {
                 data.papers.forEach(function (item, index) {
                     let paper = item.paper;
-                    // let startRow = ((index + 1) % 4 === 1);
-                    // let endRow = ((index) % 4 === 0) || ((index) === data.papers.length);
-                    let paperString = "";
+                    console.dir(paper);
                     //
                     // if(startRow) {
                     //     paperString += '<div class="row">';
                     // }
 
-                    paperString += `<div class="col-md-3"><div class="panel panel-default"><div class="panel-heading"><h2>${paper.title}</h2></div><div class="panel-body"><p>${paper.abstract}</p></div><div class="panel-footer"><a class="btn btn-danger" href="/paper/${paper.id}"> More Info</a></div></div></div>`;
 
                     // if(endRow) {
                     //     paperString += '</div>';
                     // }
 
-                    $('#papers').append(paperString);
+                    $('#papers').append(`<div class="col-md-3"><div class="panel panel-default"><div class="panel-heading"><h2>${paper.title}</h2></div><div class="panel-body"><p>${paper.abstract}</p></div><div class="panel-footer"><a class="btn btn-danger" href="/paper/${paper.id}"> More Info</a></div></div></div>`);
 
                 });
             } else {
