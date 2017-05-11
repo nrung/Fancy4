@@ -27,8 +27,6 @@ function removePaper(id) {
     });
 }
 
-
-
 /*
 * Change all of the h2 and p elements into text input fields for performing
 *  edits to a Paper on a Paper HTML Page.
