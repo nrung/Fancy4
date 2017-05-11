@@ -44,7 +44,7 @@ router.get('/profile', isLoggedIn, (req, res) => {
     res.render('profile', {user: req.user});
 });
 
-router.post('/submit', isLoggedIn, checkRole('f'), (req, res) => {
+router.post('/submit', isLoggedIn, checkRole(['a', 'f']), (req, res) => {
 
     let title = req.body.title;
     let abstract = req.body.abstract;
@@ -65,7 +65,7 @@ router.post('/submit', isLoggedIn, checkRole('f'), (req, res) => {
     });
 });
 
-router.get('/submit', isLoggedIn, checkRole('f'), (req, res) => {
+router.get('/submit', isLoggedIn, checkRole(['a', 'f']), (req, res) => {
     res.render('submit', {title: "Paper Submission", user: req.user})
 });
 
