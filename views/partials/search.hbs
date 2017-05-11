@@ -1,5 +1,8 @@
 <div class="well row">
-    <div class="col-sm-6 col-sm-offset-3" >
+    <div class="col-sm-3">
+        <button class="btn pull-right" onclick="resetSearch()">Clear Search</button>
+    </div>
+    <div class="col-sm-6">
         <div class="input-group">
             <div class="input-group-btn search-panel">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -14,20 +17,23 @@
             <input type="hidden" name="search_param" value="all" id="search_param">
             <input type="text" class="form-control" name="x" id="searchQuery" placeholder="Search term...">
             <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" onclick="searchPapers()"><span class="glyphicon glyphicon-search"></span></button>
+                    <button class="btn btn-default" type="button" onclick="searchPapers()"><span
+                            class="glyphicon glyphicon-search"></span></button>
                 </span>
         </div>
     </div>
     <div class="col-sm-3">
-        <div class="dropdown">
-            <button class="btn btn-primary btn-block dropdown-toggle" type="button" data-toggle="dropdown">-Filter Papers-
-                <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li><a href="#">HTML</a></li>
-                <li><a href="#">CSS</a></li>
-                <li><a href="#">JavaScript</a></li>
-            </ul>
-        </div>
+
+        <!--<div class="dropdown">-->
+            <!--<button class="btn btn-primary btn-block dropdown-toggle" type="button" data-toggle="dropdown">-Filter-->
+                <!--Papers--->
+                <!--<span class="caret"></span></button>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a href="#">HTML</a></li>-->
+                <!--<li><a href="#">CSS</a></li>-->
+                <!--<li><a href="#">JavaScript</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
     </div>
     <!-- /.col-lg-12 -->
 </div>

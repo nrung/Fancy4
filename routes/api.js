@@ -18,6 +18,7 @@ const Business = new BusinessAPI();
 // 	});
 // });
 
+/* DELETE a Paper by id */
 router.delete('/paper/:id', isLoggedIn, checkRole('a'), (req, res) => {
     let id = req.params.id;
 
@@ -33,6 +34,19 @@ router.delete('/paper/:id', isLoggedIn, checkRole('a'), (req, res) => {
     }).catch(error => {
         console.dir(error);
         res.status(500);
+    });
+});
+
+router.post('/search', (req, res) => {
+    const type = req.body.type.substr(0,75);
+    const query = req.body.query.substr(0,75);
+
+    Business.searchPapers(type, query).then(papers => {
+
+        res.status(200).json({ papers: papers, message: "Success!" });
+    }).catch(error => {
+        console.log(error);
+        res.status(400);
     });
 });
 

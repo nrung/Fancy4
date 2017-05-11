@@ -69,7 +69,7 @@ router.get('/submit', isLoggedIn, checkRole(['a', 'f']), (req, res) => {
     res.render('submit', {title: "Paper Submission", user: req.user})
 });
 
-router.get('/papers', isLoggedIn, (req, res) => {
+router.get('/papers', (req, res) => {
 
     Business.getAllPapers().then(resultSet => {
 
