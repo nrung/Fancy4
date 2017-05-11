@@ -22,9 +22,14 @@ router.delete('/paper/:id', isLoggedIn, checkRole('a'), (req, res) => {
     let id = req.params.id;
 
     Business.removePaper(id).then(result => {
-        console.dir(result);
-        req.flash('papersMessage', 'Paper Deleted.');
-        res.redirect(200, '/papers');
+        if(result === 1) {
+            req.flash('papersMessage', 'Paper Deleted.');
+            res.status(200).json({message: "Paper Deleted."});
+        } else if(result === 0) {
+            res.status(400).json({message: "Bad request"});
+        } else {
+            res.status(500).json({message: "Internal Server Error"});
+        }
     }).catch(error => {
         console.dir(error);
         res.status(500);
@@ -46,7 +51,7 @@ router.get('/:id', function (req, res) {
 
 /* GET a Paper by its id */
 router.get('/papers/:id', isLoggedIn, (req, res) => {
-    let reqedPaper = new Paper(req.params.id, "", "", "");
+    let reqedPaper = new Paper(req.params.id);
 
     // Fetch the reqed paper. Respond with data about the paper.
     //  If there is an error, catch it and report it.
