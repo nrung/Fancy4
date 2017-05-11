@@ -33,7 +33,7 @@ function removePaper(id) {
 * Change all of the h2 and p elements into text input fields for performing
 *  edits to a Paper on a Paper HTML Page.
 */
-function enterEditMode() {
+function enterEditMode(paperId) {
 
 	$('form h2').each(
 		function(index, element) {
@@ -45,6 +45,8 @@ function enterEditMode() {
 
 			$(element).replaceWith(function () {
 				attributes.value = $(this).text();
+				attributes.type = "text";
+				attributes.class = "form-control";
 				return $('<input />', attributes);
 			});
 		}
@@ -60,10 +62,13 @@ function enterEditMode() {
 
 			$(element).replaceWith(function () {
 				attributes.text = $(this).text();
+				attributes.class = "form-control";
 				return $('<textarea />', attributes);
 			});
 		}
 	);
+
+	$('#editMode').replaceWith('<button class="btn btn-success" onclick="saveEdits(' + paperId + ')" >Save</button>');
 }
 function searchPapers(){
     console.log("In Search Paper");
