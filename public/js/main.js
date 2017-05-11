@@ -7,3 +7,22 @@
  * @author Nick Rung
  * @version 9 of May 2017
  */
+
+function removePaper(id) {
+
+    $.ajax({
+        url: '/api/paper/' + id,
+        type: 'DELETE',
+        success: function(result) {
+            console.log(result.message);
+            window.location = "/papers";
+        },
+        fail: function(result) {
+            if(result.message) {
+                console.log(result.message);
+            } else {
+                console.log("ERROR");
+            }
+        }
+    });
+}
