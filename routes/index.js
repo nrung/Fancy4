@@ -81,11 +81,13 @@ router.get('/papers', (req, res) => {
     });
 });
 
-router.get('/paper/:id', (req, res) => {
+router.get('/paper/:id', isLoggedIn, (req, res) => {
     let id = req.params.id;
     let admin = false;
-    if(req.user.role === 'a') {
-        admin = true;
+    if(req.isAuthenticated()) {
+        if (req.user.role === 'a') {
+            admin = true;
+        }
     }
     Business.getPaper(id).then(result => {
         console.dir(result);

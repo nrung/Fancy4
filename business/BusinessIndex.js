@@ -50,6 +50,7 @@ class BusinessIndex {
             let paper = new Paper(-1, title, abstract, citation);
 
             paper.post().then(resultSet => {
+                console.dir(resultSet);
                 resolve(resultSet);
             }).catch(error => {
                 reject(error);
