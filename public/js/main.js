@@ -26,3 +26,42 @@ function removePaper(id) {
         }
     });
 }
+
+
+
+/*
+* Change all of the h2 and p elements into text input fields for performing
+*  edits to a Paper on a Paper HTML Page.
+*/
+function enterEditMode() {
+
+	$('form h2').each(
+		function(index, element) {
+			var attributes = {};
+
+			$.each(element.attributes, function(index, attribute) {
+				attributes[attribute.nodeName] = attribute.nodeValue;
+			});
+
+			$(element).replaceWith(function () {
+				attributes.value = $(this).text();
+				return $('<input />', attributes);
+			});
+		}
+	);
+
+	$('form p').each(
+		function(index, element) {
+			var attributes = {};
+
+			$.each(element.attributes, function(index, attribute) {
+				attributes[attribute.nodeName] = attribute.nodeValue;
+			});
+
+			$(element).replaceWith(function () {
+				attributes.text = $(this).text();
+				return $('<textarea />', attributes);
+			});
+		}
+	);
+}
