@@ -2,6 +2,9 @@
 
 {{> search}}
 
+{{#if message}}
+    <div class="message">{{message}}</div>
+{{/if}}
 {{#each papers}}
     {{#if start}}
         <!-- Content Row -->
