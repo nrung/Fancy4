@@ -78,13 +78,20 @@ function searchPapers(){
     console.log(searchQuery);
 
     $.ajax({
-        url: '/api/search/${type}/${searchQuery}',
-        data: data,
-        success: updatePapers(),
-        //dataType: dataType
+        url: "/api/search",
+        type: "POST",
+        data: {type: type, query: searchQuery},
+        success: function(papers){
+            $('#pageBody').empty;
+            if(papers.length) {
+                papers.forEach(function (paper, i, arr) {
+                    $("#pageBody").append(`<div class="col-md-3">\n<div class="panel panel-default">\n<div class="panel-heading"><h2>${paper.title}</h2></div>\n<div class="panel-body"><p>${paper.abstract}</p></div>\n<div class="panel-footer">\n<a class="btn btn-danger" href="/paper/${paper.id}"> More Info</a>\n</div>\n</div>\n</div>`);
+                });
+            }
+            else{
+                $("#pageBody").append("<h3 class='bg-danger text-center'>No Results Found.</h3>");
+            }
+        },
+        dataType: "text/json"
     });
-}
-function updatePapers(){
-    $('#pageBody').empty;
-
 }
