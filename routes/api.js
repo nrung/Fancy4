@@ -7,54 +7,64 @@ const Paper = require('../db/Paper.js');
 const PaperKeywords = require('../db/PaperKeywords');
 
 /* GET users listing. */
-// router.get('/', function (request, response, next) {
+// router.get('/', function (req, res, next) {
 //
 // 	MySQLDatabase.getData("SELECT id, firstName, lastName, email FROM Users").then(function (resultSet) {
-// 		response.send(resultSet.rows);
+// 		res.send(resultSet.rows);
 // 	}).catch(function(error) {
-// 		response.send(error);
+// 		res.send(error);
 // 	});
 // });
 
-/* GET a User by its id */
-router.get('/:id', function (request, response) {
-	let requestedUser = new User(request.params.id);
+router.delete('/paper/:id', isLoggedIn, checkRole('a'), (req, res) => {
+    let id = req.params.id;
 
-	// Fetch the requested user. Respond with data about the user.
+    Business.removePaper(id).then(result => {
+        console.dir(result);
+        req.flash('papersMessage', 'Paper Deleted.');
+        res.redirect(200, '/papers');
+    }).catch(error => {
+        console.dir(error);
+        res.status(500);
+    });
+});
+
+/* GET a User by its id */
+router.get('/:id', function (req, res) {
+	let reqedUser = new User(req.params.id);
+
+	// Fetch the reqed user. Respond with data about the user.
 	//  If there is an error, catch it and report it.
-	requestedUser.fetch().then(() => {
-		response.send(requestedUser.id + " " + requestedUser.firstName + " " + requestedUser.lastName);
+	reqedUser.fetch().then(() => {
+		res.send(reqedUser.id + " " + reqedUser.firstName + " " + reqedUser.lastName);
 	}).catch(error => {
-		response.send(error);
+		res.send(error);
 	});
 });
 
 /* GET a Paper by its id */
-router.get('/papers/:id', isLoggedIn, (request, response) => {
-    let requestedPaper = new Paper(request.params.id, "", "", "");
+router.get('/papers/:id', isLoggedIn, (req, res) => {
+    let reqedPaper = new Paper(req.params.id, "", "", "");
 
-    // Fetch the requested paper. Respond with data about the paper.
+    // Fetch the reqed paper. Respond with data about the paper.
     //  If there is an error, catch it and report it.
-    requestedPaper.fetch().then(() => {
-        response.send(requestedPaper.id + " " + requestedPaper.title);
+    reqedPaper.fetch().then(() => {
+        res.send(reqedPaper.id + " " + reqedPaper.title);
     }).catch(error => {
-        response.send(error);
+        res.send(error);
     });
 });
 
 /* GET a Paper's keywords by its id */
-router.get('/papers/:id/keywords', isLoggedIn, (request, response) => {
-    let requestedPaperKeywords = new PaperKeywords(request.params.id);
+router.get('/papers/:id/keywords', isLoggedIn, (req, res) => {
+    let reqedPaperKeywords = new PaperKeywords(req.params.id);
 
-    console.log("REQUEST PAPER BY ID");
-
-    // Fetch the requested paper. Respond with data about the paper.
+    // Fetch the reqed paper. Respond with data about the paper.
     //  If there is an error, catch it and report it.
-    requestedPaperKeywords.fetch().then(() => {
-        console.log("FETCHED PAPER BY ID");
-        response.send(requestedPaperKeywords.paperId + " " + requestedPaperKeywords.keywords);
+    reqedPaperKeywords.fetch().then(() => {
+        res.send(reqedPaperKeywords.paperId + " " + reqedPaperKeywords.keywords);
     }).catch(error => {
-        response.send(error);
+        res.send(error);
     });
 });
 

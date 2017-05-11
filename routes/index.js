@@ -93,19 +93,6 @@ router.get('/paper/:id', (req, res) => {
     });
 });
 
-router.delete('/paper/:id', isLoggedIn, checkRole('a'), (req, res) => {
-    let id = req.params.id;
-
-    Business.removePaper(id).then(result => {
-        console.dir(result);
-        req.flash('papersMessage', 'Paper Deleted.');
-        res.redirect(200, '/papers');
-    }).catch(error => {
-        console.dir(error);
-        res.status(500);
-    });
-});
-
 router.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
