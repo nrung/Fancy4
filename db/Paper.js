@@ -6,19 +6,15 @@
  * Team 11 (Fancy 4)
  * @author Brendon Strowe
  * @version 2 of May 2017
- * @modified Nick Rung
  */
 
 let MySQLDatabase = require('../db/MySQLDatabase.js');
 
 class Paper {
-// Make the "module" (Class/Object type) available for use in other files.
-   // module.exports = Paper;
+
     /**
-     * Default constructor
-     *
-     * Creates a new Paper object with only the id field set.
-     * All other fields are left blank.
+     * Creates a new Paper object with the ID, Title, Abstract, and Citation
+     *  properties defined.
      *
      * @param {number} id - ID number of the paper from the Paper table.
      * @param {string} title - Title of the paper
@@ -139,5 +135,6 @@ class Paper {
     };
 
 }
+
 // Make the "module" (Class/Object type) available for use in other files.
 module.exports = Paper;

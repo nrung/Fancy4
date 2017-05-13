@@ -15,7 +15,7 @@ let mysql = require('mysql');
  * @type {Pool}
  */
 let pool = mysql.createPool({
-    connectionLimit    : 1024,
+    connectionLimit : 1024,
     host            : process.env.DB_HOST,
     user            : process.env.DB_USERNAME,
     password        : process.env.DB_PASSWORD,

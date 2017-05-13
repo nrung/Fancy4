@@ -13,25 +13,21 @@ let MySQLDatabase = require('../db/MySQLDatabase.js');
 
 class PaperKeywords {
 
-
-    /**
-     * Default constructor
-     */
+	/**
+      * Creates a new PaperKeywords object with the ID and Keywords
+      *  properties defined.
+      *
+	  * @param {number} paperId - ID number of a Paper object.
+      * @param {array} keywords - Keywords for the Paper object.
+      */
     constructor(id, keywords) {
         this.paperId = id;
         this.keywords = keywords;
     }
 
     /**
-     * Creates a new PaperKeywords object with the id field set.
-     * The keywords field is left blank.
-     *
-     * @param {number} paperId - ID number of a Paper object.
-     * @param {array} keywords - Keywords for the Paper object.
-     */
-
-    /**
-     * Fetches all of the keywords for a given Paper from the database based on the Paper's ID number.
+     * Fetches all of the keywords for a given Paper from the database based on
+     *  the Paper's ID number.
      *
      * @return {Promise} Whether or not the fetch was successful.
      */
@@ -64,7 +60,7 @@ class PaperKeywords {
      * Updates an existing list of Keywords for a Paper entry in the database.
      *
      * @return {Promise} Whether or not the update was successful. A successful
-     * update resolves with the number of rows affected.
+     *  update resolves with the number of rows affected.
      */
 
     update() {
@@ -102,7 +98,7 @@ class PaperKeywords {
      *
      * @param {string} newKeyword - The new keyword to be added.
      * @return {Promise} Whether or not the addition was successful. A successful
-     * POST resolves with the number of rows affected.
+     *  POST resolves with the number of rows affected.
      */
     post(newKeyword) {
 
@@ -125,7 +121,7 @@ class PaperKeywords {
      *
      * @param {string} deletedKeyword - The keyword to be deleted.
      * @return {Promise} Whether or not the deletion was successful. A successful
-     * DELETE resolves with the number of rows affected.
+     *  DELETE resolves with the number of rows affected.
      */
     remove(deletedKeyword) {
 

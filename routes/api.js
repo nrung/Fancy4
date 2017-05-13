@@ -1,3 +1,11 @@
+/**
+ * Set up RESTful-style endpoints for URL routing for our Paper API.
+ *
+ * Faculty Research Database - Final Project
+ * ISTE 330 01
+ * Team 11 (Fancy 4)
+ */
+
 const express = require('express');
 const router = express.Router();
 
@@ -8,102 +16,132 @@ const PaperKeywords = require('../db/PaperKeywords');
 const BusinessAPI = require('../business/BusinessAPI');
 const Business = new BusinessAPI();
 
-/* GET users listing. */
-// router.get('/', function (req, res, next) {
-//
-// 	MySQLDatabase.getData("SELECT id, firstName, lastName, email FROM Users").then(function (resultSet) {
-// 		res.send(resultSet.rows);
-// 	}).catch(function(error) {
-// 		res.send(error);
-// 	});
-// });
-
-/* DELETE a Paper by id */
-router.delete('/paper/:id', isLoggedIn, checkRole('a'), (req, res) => {
-    let id = req.params.id;
-
-    Business.removePaper(id).then(result => {
-        if(result === 1) {
-            req.flash('papersMessage', 'Paper Deleted.');
-            res.status(200).json({message: "Paper Deleted."});
-        } else if(result === 0) {
-            res.status(400).json({message: "Bad request"});
-        } else {
-            res.status(500).json({message: "Internal Server Error"});
-        }
-    }).catch(error => {
-        console.dir(error);
-        res.status(500);
-    });
-});
-
-router.post('/search', (req, res) => {
-    const type = req.body.type.substr(0,75);
-    const query = req.body.query.substr(0,75);
-
-    Business.searchPapers(type, query).then(papers => {
-
-        res.status(200).json({ papers: papers, message: "Success!" });
-    }).catch(error => {
-        console.log(error);
-        res.status(400);
-    });
-});
-
-/* GET a User by its id */
-router.get('/:id', function (req, res) {
-	let reqedUser = new User(req.params.id);
+/**
+ * Get a User by ID.
+ * Respond approprately of either a successful result or a
+ *  failure with a proper message.
+ */
+router.get('/:id', function (request, response) {
+	let requestedUser = new User(request.params.id);
 
 	// Fetch the reqed user. Respond with data about the user.
 	//  If there is an error, catch it and report it.
-	reqedUser.fetch().then(() => {
-		res.send(reqedUser.id + " " + reqedUser.firstName + " " + reqedUser.lastName);
+	requestedUser.fetch().then(() => {
+		response.send(requestedUser.id + " " + requestedUser.firstName + " " + requestedUser.lastName);
 	}).catch(error => {
-		res.send(error);
+		response.send(error);
 	});
 });
 
-/* GET a Paper by its id */
-router.get('/papers/:id', isLoggedIn, (req, res) => {
-    let reqedPaper = new Paper(req.params.id);
+/**
+ * Search for a paper.
+ * Get the type of search to be executed and the query to be executed from the
+ *  HTTP POST request body (from the HTML page contents).
+ * Respond to the user approprately of either a successful result or a
+ *  failure with a proper message.
+ */
+router.post('/search', (request, response) => {
+    const type = request.body.type.substr(0,75);
+    const query = request.body.query.substr(0,75);
 
-    // Fetch the reqed paper. Respond with data about the paper.
-    //  If there is an error, catch it and report it.
-    reqedPaper.fetch().then(() => {
-        res.send(reqedPaper.id + " " + reqedPaper.title);
+    Business.searchPapers(type, query).then(papers => {
+		response.status(200).json({ papers: papers, message: "Success!" });
     }).catch(error => {
-        res.send(error);
+        console.log(error);
+        response.status(400);
     });
 });
 
-/* GET a Paper's keywords by its id */
-router.get('/papers/:id/keywords', isLoggedIn, (req, res) => {
-    let reqedPaperKeywords = new PaperKeywords(req.params.id);
+/**
+ * Get a Paper by ID.
+ * The HTTP GET request must be recieved by a logged in user.
+ * Respond approprately of either a successful result or a
+ *  failure with a proper message.
+ */
+router.get('/papers/:id', isLoggedIn, (request, response) => {
+    let requestedPaper = new Paper(request.params.id);
+
+    // Fetch the reqed paper. Respond with data about the paper.
+    //  If there is an error, catch it and report it.
+    requestedPaper.fetch().then(() => {
+        response.send(requestedPaper.id + " " + requestedPaper.title);
+    }).catch(error => {
+        response.send(error);
+    });
+});
+
+/**
+ * Get a Paper's keywords by the Paper's ID.
+ * The HTTP GET request must be recieved by a logged in user.
+ * Respond approprately of either a successful result or a
+ *  failure with a proper message.
+ */
+router.get('/papers/:id/keywords', isLoggedIn, (request, response) => {
+    let reqedPaperKeywords = new PaperKeywords(request.params.id);
 
     // Fetch the reqed paper. Respond with data about the paper.
     //  If there is an error, catch it and report it.
     reqedPaperKeywords.fetch().then(() => {
-        res.send(reqedPaperKeywords.paperId + " " + reqedPaperKeywords.keywords);
+        response.send(reqedPaperKeywords.paperId + " " + reqedPaperKeywords.keywords);
     }).catch(error => {
-        res.send(error);
+        response.send(error);
     });
 });
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
+/**
+ * Delete a paper by ID.
+ * HTTP DELETE request must be recieved by a logged in user and must
+ *  have the role of Admin ('a').
+ * Respond to the user approprately of either a successful paper deletion or a
+ *  failure with a proper message.
+ */
+router.delete('/paper/:id', isLoggedIn, checkRole('a'), (request, response) => {
+    let paperId = request.params.id;
+
+    Business.removePaper(paperId).then(result => {
+        if(result === 1) {
+            request.flash('papersMessage', 'Paper Deleted.');
+            response.status(200).json({message: "Paper Deleted."});
+        } else if(result === 0) {
+            response.status(400).json({message: "Bad request"});
+        } else {
+            response.status(500).json({message: "Internal Server Error"});
+        }
+    }).catch(error => {
+        console.log(error);
+        response.status(500);
+    });
+});
+
+/**
+ * Create a "Middleware" function i.e. something to be executed in between the
+ *  receiving of an HTTP request and the response to that request.
+ * Check if there is a logged-in user sending this request.
+ *
+ * @param request - HTTP Request received.
+ * @param response - HTTP Response to eventially send
+ * @param  {Function} next - To be called once this Middleware function is finished executing.
+ */
+function isLoggedIn(request, response, next) {
+    if (request.isAuthenticated())
         return next();
-    res.redirect('/');
+    response.redirect('/');
 }
 
+/**
+ * Middleware function to check the role of the user sending this request.
+ *
+ * @param {String} or {Array} - allowable roles.
+ */
 function checkRole(role) {
-    return (req, res, next) => {
+    return (request, response, next) => {
 
-        if (typeof role === "string" && role === req.user.role) {
+        if (typeof role === "string" && role === request.user.role) {
             next();
-        } else if (typeof role === "object" && role.includes(req.user.role)) {
+        } else if (typeof role === "object" && role.includes(request.user.role)) {
             next();
         } else {
-            res.redirect(401, '/');
+            response.redirect(401, '/');
         }
     };
 }

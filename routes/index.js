@@ -8,12 +8,13 @@ const BusinessIndex = require('../business/BusinessIndex');
 const Business = new BusinessIndex();
 
 // RowDataPacket {
-//     id: 5,
-//         firstName: 'userlast',
-//         lastName: 'userfirst',
-//         email: 'username@rit.edu',
-//         role: 's',
-//         password: '$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha' }
+//		id: 5,
+//		firstName: 'userlast',
+//		lastName: 'userfirst',
+//		email: 'username@rit.edu',
+//		role: 's',
+//		password: '$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha'
+// }
 
 /* GET home page. */
 router.get('/', (req, res) => {
