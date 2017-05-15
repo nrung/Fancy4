@@ -41,10 +41,11 @@ module.exports = passport => {
 	 */
     passport.deserializeUser((id, done) => {
 
-        MySQLDatabase.getData("SELECT * FROM users WHERE id = ?", [id]).then(resultSet => {
-            done(null, resultSet.rows[0]);
+      MySQLDatabase.getData('SELECT * FROM users WHERE id = ?', [id]).then(resultSet => {
+
+          done(null, resultSet.rows[0]);
         }).catch(error => {
-            done(error);
+          done(error);
         });
     });
 
@@ -60,10 +61,10 @@ module.exports = passport => {
             passwordField: 'password',
             passReqToCallback: true, // Allows us to pass back the entire request to the callback/done function
         },
-        (request, username, password, done) => {
-            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(resultSet => {
+      (req, username, password, done) => {
+          MySQLDatabase.getData('SELECT * FROM users WHERE email = ?', [username]).then(resultSet => {
 
-                let user = resultSet.rows[0];
+              let user = resultSet.rows[0];
 
 				// Check if the username supplied exists in the database already.
                 if (!user) {
@@ -90,39 +91,40 @@ module.exports = passport => {
             passwordField: 'password',
             passReqToCallback: true // Allows us to pass back the entire request to the callback/done function
         }, (req, username, password, done) => {
-            // find a user whose email is the same as the forms email
-            // we are checking to see if the user trying to login already exists
-            MySQLDatabase.getData("SELECT * FROM users WHERE email = ?", [username]).then(resultSet => {
-                if (resultSet.length) {
-                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-                } else {
-                    // if there is no user with that username
-                    // create the user
-                    let newUserMysql = {
-                        username: username,
-                        password: bcrypt.hashSync(password, null, null),  // use the generateHash function in our user model
-                        firstname: req.body.firstname,
-                        lastname: req.body.lastname,
-                        role: 's'
-                    };
+          // find a user whose email is the same as the forms email
+          // we are checking to see if the user trying to login already exists
+          MySQLDatabase.getData('SELECT * FROM users WHERE email = ?', [username]).then(resultSet => {
+              if (resultSet.length) {
+                return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+              } else {
+                // if there is no user with that username
+                // create the user
+                let newUserMysql = {
+                    username: username,
+                    password: bcrypt.hashSync(password, null, null),  // use the generateHash function in our user model
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    role: 's'
+                  };
 
-                    let insertQuery = "INSERT INTO users ( email, password, firstname, lastname, role ) values (?,?,?,?,?)";
+                let insertQuery = 'INSERT INTO users ( email, password, firstname, lastname, role ) values (?,?,?,?,?)';
 
-                    MySQLDatabase.setData(insertQuery, [newUserMysql.username, newUserMysql.password, newUserMysql.firstname, newUserMysql.lastname, newUserMysql.role]).then(resultSet => {
-                        newUserMysql.id = resultSet.insertId;
+                let vals = [newUserMysql.username, newUserMysql.password, newUserMysql.firstname, newUserMysql.lastname, newUserMysql.role];
+                MySQLDatabase.setData(insertQuery, vals).then(resultSet => {
+                    newUserMysql.id = resultSet.insertId;
 
-                        return done(null, newUserMysql);
+                    return done(null, newUserMysql);
 
-                    }).catch(error => {
-                        // Error from inserting new user into users table
-                        console.log(error);
-                        return done(error);
-                    });
-                }
+                  }).catch(error => {
+                    // Error from inserting new user into users table
+                    console.log(error);
+                    return done(error);
+                  });
+              }
             }).catch(error => {
-                // Error from querying if user exists
-                return done(error);
+              // Error from querying if user exists
+              return done(error);
             });
         })
-    );
+  );
 };

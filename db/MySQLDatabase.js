@@ -40,8 +40,8 @@ exports.getData = (sql, values) => {
         // Attempt to connect using connection pool.
         pool.getConnection((connectionError, connection) => {
             if (connectionError) {
-                console.log("ERROR: " + connectionError.code);
-                reject("Error connecting to database. Message: " + connectionError.code);
+              console.log('ERROR: ' + connectionError.code);
+              reject('Error connecting to database. Message: ' + connectionError.code);
             }
 
             console.log('connected as id ' + connection.threadId);
@@ -51,19 +51,19 @@ exports.getData = (sql, values) => {
                 connection.release();
 
                 if (queryError) {
-                    reject("Error querying database. Message: " + queryError.code);
+                  reject('Error querying database. Message: ' + queryError.code);
                 }
 
                 // Information provided from Query.
                 let resultSet = {
-                    headers : fields,
-                    rows : results
-                };
+                    headers: fields,
+                    rows: results
+                  };
                 resolve(resultSet);
-            });
-        });
-    });
-};
+              });
+          });
+      });
+  };
 
 /**
  * This method will update the database using a precompiled SQL Statement.
@@ -81,27 +81,27 @@ exports.setData = (sql, values) => {
         // Attempt to connect using connection pool.
         pool.getConnection((connectionError, connection) => {
             if (connectionError) {
-                reject("Error connecting to database. Message: " + connectionError.code);
+              reject('Error connecting to database. Message: ' + connectionError.code);
             }
 
             console.log('connected as id ' + connection.threadId);
 
             // Perform SQL update.
-           connection.query(sql, values, (updateError, results) => {
+            connection.query(sql, values, (updateError, results) => {
                 connection.release();
 
                 console.dir(updateError);
                 if (updateError) {
-                    reject("Error updating the database. Message: " + updateError.code);
+                  reject('Error updating the database. Message: ' + updateError.code);
                 }
 
                 // Information provided from Update.
                 let resultSet = {
-                    insertId : results.insertId,
-                    rowsAffected : results.affectedRows
-                };
+                    insertId: results.insertId,
+                    rowsAffected: results.affectedRows
+                  };
                 resolve(resultSet);
-            });
-        });
-    });
-};
+              });
+          });
+      });
+  };
