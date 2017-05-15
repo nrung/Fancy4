@@ -25,9 +25,9 @@ CREATE TABLE Users (
 
 CREATE TABLE Papers (
 	id INT UNSIGNED AUTO_INCREMENT,
-	title VARCHAR(48) NOT NULL,
+	title VARCHAR(200) NOT NULL,
 	abstract TEXT,
-	citation VARCHAR(48),
+	citation VARCHAR(200),
 	CONSTRAINT pk_id PRIMARY KEY (id)
 );
 
@@ -36,7 +36,7 @@ CREATE TABLE Authorship (
 	paperId INT UNSIGNED,
 	CONSTRAINT pk_userId_paperId PRIMARY KEY (userId, paperId),
 	CONSTRAINT fk_userId_Authorship FOREIGN KEY (userId) REFERENCES Users(id) ON UPDATE CASCADE ON DELETE CASCADE,
-	CONSTRAINT fk_paperId_Authorship FOREIGN KEY (paperId) REFERENCES Papers(id) ON UPDATE CASCADE
+	CONSTRAINT fk_paperId_Authorship FOREIGN KEY (paperId) REFERENCES Papers(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE PaperKeywords (
