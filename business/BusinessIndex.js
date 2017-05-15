@@ -1,5 +1,6 @@
 /**
  * Created by Nick on 5/2/2017.
+ * Edited by Brendan McGeever
  */
 
 const MySQLDatabase = require('../db/MySQLDatabase.js');
