@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-const Paper = require('../db/Paper');
-const PaperKeywords = require('../db/PaperKeywords');
+const Paper = require('../db/models/Paper');
+const PaperKeywords = require('../db/models/PaperKeywords');
 const BusinessIndex = require('../business/BusinessIndex');
 const Business = new BusinessIndex();
 

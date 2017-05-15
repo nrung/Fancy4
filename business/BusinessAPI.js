@@ -3,7 +3,7 @@
  */
 
 const MySQLDatabase = require('../db/MySQLDatabase.js');
-const Paper = require('../db/Paper');
+const Paper = require('../db/models/Paper');
 
 class BusinessAPI {
 

@@ -9,7 +9,7 @@
  * @version 17 of April 2017
  */
 
- const MySQLDatabase = require('../db/MySQLDatabase.js');
+ const MySQLDatabase = require('../MySQLDatabase.js');
 
  // Make the "module" (Class/Object type) available for use in other files.
  module.exports = User;

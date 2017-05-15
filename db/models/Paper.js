@@ -8,7 +8,7 @@
  * @version 2 of May 2017
  */
 
-let MySQLDatabase = require('../db/MySQLDatabase.js');
+let MySQLDatabase = require('../MySQLDatabase.js');
 
 class Paper {
 

@@ -9,7 +9,7 @@
  * @modified Nick Rung
  */
 
-let MySQLDatabase = require('../db/MySQLDatabase.js');
+let MySQLDatabase = require('../MySQLDatabase.js');
 
 class PaperKeywords {
 
