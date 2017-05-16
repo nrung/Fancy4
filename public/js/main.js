@@ -29,6 +29,14 @@ function removePaper(id) {
   });
 }
 
+function saveEdits(paperId) {
+	let newTitle = document.getElementById("title").value;
+	let newCitation = document.getElementById("citation").value;
+	let newAbstracy = document.getElementById("abstract").value;
+
+	// Ajax Call
+}
+
 /*
  * Change all of the h2 and p elements into text input fields for performing
  *  edits to a Paper on a Paper HTML Page.
@@ -68,53 +76,15 @@ function enterEditMode(paperId) {
       },
   );
 
-  $('#editMode').
-      replaceWith(
-          `<div id="edit"><button class="btn btn-warning" onclick="cancelEdit(${paperId})">Cancel</button>
-<br><br>
-<button class="btn btn-success" onclick="saveEdits(${paperId})">Save</button>
-</div>`);
+	$('#editMode').
+		replaceWith(
+        	`<button class="btn btn-warning" onclick="cancelEdit()">Cancel</button>
+			<button class="btn btn-success" onclick="saveEdits(${paperId})">Save</button>`
+		);
 }
 
-function cancelEdit(paperId) {
-  $('#edit').
-      replaceWith(
-          `<button class="btn btn-info" onclick="enterEditMode(${paperId})" 
-id="editMode">Edit</button>`);
-
-  $('#paper .text-center textarea').each(
-      function(index, element) {
-        let attributes = {};
-
-        $.each(element.attributes, function(index, attribute) {
-          attributes[attribute.nodeName] = attribute.nodeValue;
-        });
-
-        $(element).replaceWith(function() {
-          attributes.value = $(this).text();
-          attributes.type = 'text';
-          attributes.class = 'form-control';
-          return $('<input />', attributes);
-        });
-      },
-  );
-
-  $('#paper p').each(
-      function(index, element) {
-        let attributes = {};
-
-        $.each(element.attributes, function(index, attribute) {
-          attributes[attribute.nodeName] = attribute.nodeValue;
-        });
-
-        $(element).replaceWith(function() {
-          attributes.text = $(this).text();
-          attributes.class = 'form-control';
-          return $('<textarea />', attributes);
-        });
-      },
-  );
-
+function cancelEdit() {
+	window.location.reload(true);
 }
 
 function searchPapers() {

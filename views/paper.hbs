@@ -1,20 +1,24 @@
 
 
 <div class="row" style="padding-top:50px;";>
-    <div class="col-sm-8 col-sm-offset-2">
+    <div class="col-sm-8 col-sm-offset-2 text-center">
         <div id="paper">
-            <div class="text-center">
-                <h2 name="title">{{paper.title}}</h2>
+				<div class="form-group">
+					<h3>Title</h3>
+                	<h2 id="title">{{paper.title}}</h2>
+				</div>
+				<div class="form-group">
                     <h3>Citation</h3>
-                <p name="citation">{{paper.citation}}</p>
+                	<p id="citation">{{paper.citation}}</p>
+				</div>
+				<div class="form-group">
                     <h3>Paper Abstract</h3>
-                <p name="abstract">{{paper.abstract}}</p>
-            </div>
+	                <p id="abstract">{{paper.abstract}}</p>
+				</div>
         </div>
         <br><br>
         {{#if admin}}
 		<button class="btn btn-info" onclick="enterEditMode({{paper.id}})" id="editMode">Edit</button>
-            <br><br>
         <button class="btn btn-danger" onclick="removePaper({{paper.id}})">Delete</button>
         {{/if}}
     </div>
