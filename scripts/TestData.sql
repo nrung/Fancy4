@@ -10,7 +10,7 @@ INSERT INTO users (id,firstName,lastName,email,role,password)
 	VALUES
     (1,'Andrew','Diana','axd7832@rit.edu','a','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha'),
     (2,'Nick','Rung','nxr8475@rit.edu','f','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha'),
-    (3,'Brendon','Strowe','brendan.strowe@rit.edu','s','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha'),
+    (3,'Brendon','Strowe','brendon.strowe@mail.rit.edu','s','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha'),
     (4,'Brendan','McGeever','btm4810@rit.edu','a','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha'),
     (5,'userlast','userfirst','username@rit.edu','s','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha'),
     (6,'Flo','Pro','flobot@rit.edu','f','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha');
