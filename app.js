@@ -32,7 +32,12 @@ app.engine('hbs', exphbs({
     extname: '.hbs',
     defaultLayout: 'layout',
     layoutsDir: path.join(__dirname, '/views/layouts/'),
-    partialsDir: path.join(__dirname, '/views/partials/')
+    partialsDir: path.join(__dirname, '/views/partials/'),
+    helpers: {
+        canAddPaper: function(userRole) {
+            return ['f','a'].includes(userRole);
+        }
+    }
 }));
 
 app.set('view engine', 'hbs');

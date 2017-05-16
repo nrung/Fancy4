@@ -91,7 +91,7 @@ class Paper {
    */
   post() {
 
-    // Must set a variable definition for 'this' as once iniside the Promise,
+    // Must set a variable definition for 'this' as once inside the Promise,
     // 'this' will no longer refer to the Paper object.
     let thisPaper = this;
 

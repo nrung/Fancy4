@@ -119,7 +119,7 @@ function searchPapers() {
       $('#papers').empty();
       console.dir(data);
 
-      if (data.papers) {
+      if (data.papers.length >= 1) {
 
         data.papers.forEach(function(item, index) {
           let paperString = '';
@@ -149,7 +149,9 @@ function searchPapers() {
         });
       } else {
         $('#papers').
-            append('<h3 class="bg-danger text-center">No Results Found.</h3>');
+            append('<h3 class="text-center text-danger"' +
+                ' style="padding: 0.5em;">No' +
+                ' Results Found.</h3>');
       }
     },
     dataType: 'json',
