@@ -70,27 +70,36 @@ function enterEditMode(paperId) {
 
   $('#editMode').
       replaceWith(
-          `<button class="btn btn-success" onclick="saveEdits(${paperId})" >Save</button>`);
+          `<button class="btn btn-success" onclick="saveEdits(${paperId})">Save</button>`);
 }
 
 function searchPapers() {
-  console.log('In Search Paper');
   const type = $('#search_concept').text().substring(1);
   const searchQuery = $('#searchQuery').val();
   console.log(type);
   console.log(searchQuery);
 
-  if (data.papers.length) {
-    data.papers.forEach(function(item, index) {
-      let paperString = '';
-      let paper = item.paper;
-      console.dir(paper);
+  $.ajax({
+    url: '/api/search',
+    type: 'POST',
+    data: {'type': type, 'query': searchQuery},
+    success: function(data) {
 
-      if (item.startRow) {
-        paperString += '<div class="row">';
-      }
+      $('#papers').empty();
+      console.dir(data);
 
-      paperString += `<div class="col-md-3">
+      if (data.papers) {
+
+        data.papers.forEach(function(item, index) {
+          let paperString = '';
+          let paper = item.paper;
+          console.dir(paper);
+
+          if (item.startRow) {
+            paperString += '<div class="row">';
+          }
+
+          paperString += `<div class="col-md-3">
       <div class="panel panel-default">
       <div class="panel-heading">
       <h2>${paper.title}</h2>
@@ -103,17 +112,18 @@ function searchPapers() {
       </div>
       </div>
       </div>`;
-      if (item.endRow) {
-        paperString += '</div>';
-      }
+          if (item.endRow) {
+            paperString += '</div>';
+          }
 
-      $('#papers').append(paperString);
-    });
-  } else {
-      $('#papers').
-          append(
-              '<h3 class=\'bg-danger text-center\'>No Results Found.</h3>');
-    }
+          $('#papers').append(paperString);
+        });
+      } else {
+        $('#papers').append('<h3 class="bg-danger text-center">No Results Found.</h3>');
+      }
+    },
+    dataType: 'json'
+  });
 }
 
 function resetSearch() {
@@ -162,9 +172,9 @@ function resetSearch() {
       } else {
         $('#papers').
             append(
-                '<h3 class=\'bg-danger text-center\'>No Results Found.</h3>');
+                '<h3 class="bg-danger text-center">No Results Found.</h3>');
       }
     },
-    dataType: 'json',
+    dataType: 'json'
   });
 }
