@@ -25,16 +25,33 @@ function removePaper(id) {
       } else {
         console.log('ERROR');
       }
-    },
+    }
   });
 }
 
 function saveEdits(paperId) {
 	let newTitle = document.getElementById("title").value;
 	let newCitation = document.getElementById("citation").value;
-	let newAbstracy = document.getElementById("abstract").value;
+	let newAbstract = document.getElementById("abstract").value;
 
 	// Ajax Call
+  $.ajax({
+    url: '/api/paper/' + paperId,
+    type: 'PUT',
+    data: {title: newTitle, citation: newCitation, abstract: newAbstract},
+    success: function(result) {
+      console.log(result.message);
+      window.location = '/papers';
+    },
+    fail: function(result) {
+      if (result.message) {
+        console.log(result.message);
+      } else {
+        console.log('ERROR');
+      }
+    },
+    dataType: 'json'
+  });
 }
 
 /*

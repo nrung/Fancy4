@@ -124,12 +124,18 @@ router.delete('/paper/:id', isLoggedIn, checkRole('a'), (request, response) => {
  */
 router.put('/paper/:id', isLoggedIn, checkRole('a'), (request, response) => {
   let paperId = request.params.id;
+  console.log(request.body);
 
-  Business.modifyPaper(paperId).then(result => {
+  let title = request.body.title.substring(0, 100);
+  let abstract = request.body.abstract.substring(0, 1000);
+  let citation = request.body.citation.substring(0, 1000);
+
+
+  Business.modifyPaper(paperId, title, abstract, citation).then(result => {
     console.dir(result);
     if (result === 1) {
-      request.flash('papersMessage', 'Paper Deleted.');
-      response.status(200).json({message: 'Paper Deleted.'});
+      request.flash('papersMessage', 'Paper Modified.');
+      response.status(200).json({message: 'Paper modified.'});
     } else if (result === 0) {
       response.status(400).json({message: 'Bad request'});
     } else {
