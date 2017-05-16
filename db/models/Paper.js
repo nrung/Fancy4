@@ -4,7 +4,7 @@
  * Faculty Research Database - Final Project
  * ISTE 330 01
  * Team 11 (Fancy 4)
- * @author Brendon Strowe, Nick Rung
+ * @author Brendon Strowe
  * @version 2 of May 2017
  */
 

@@ -1,19 +1,25 @@
 /**
- * @description Allows for a connection to be made to a MySQL Database.
+ * @description Handles various real-time updates to webpages (so we don't have
+ *  to re-load a page) using jQuery.
  *
  * Faculty Research Database - Final Project
  * ISTE 330 01
  *
  * Team 11 (Fancy Four)
  *
- * @author Nick Rung
- * @version 9 of May 2017
+ * @author Nick Rung, Brendon Strowe, Andrew Diana
+ * @version 15 of May 2017
  */
 
-function removePaper(id) {
+/**
+ * Initiates the removal of a paper when the Delete button is pressed.
+ * Uses an AJAX request to call the Papers API.
+ * @param  {number} paperId - PaperId number of the paper to be deleted.
+ */
+function removePaper(paperId) {
 
   $.ajax({
-    url: '/api/paper/' + id,
+    url: '/api/paper/' + paperId,
     type: 'DELETE',
     success: function(result) {
       console.log(result.message);
@@ -29,6 +35,11 @@ function removePaper(id) {
   });
 }
 
+/**
+ * Initiates the saving of an edited paper when the Save button is pressed.
+ * Uses an AJAX request to call the Papers API.
+ * @param  {number} paperId - ID of the paper tp be updated.
+ */
 function saveEdits(paperId) {
 	let newTitle = document.getElementById("title").value;
 	let newCitation = document.getElementById("citation").value;
@@ -54,9 +65,10 @@ function saveEdits(paperId) {
   });
 }
 
-/*
+/**
  * Change all of the h2 and p elements into text input fields for performing
  *  edits to a Paper on a Paper HTML Page.
+ * @param  {number} paperId - ID of the paper to include in the newly created Save button.
  */
 function enterEditMode(paperId) {
 
@@ -100,10 +112,20 @@ function enterEditMode(paperId) {
 		);
 }
 
+/**
+ * Cancels the current edit when the Cancel button is pressed.
+ * Simply dumps any changes currently on the page and re-loads the page with the
+ *  original, unmodified data from the database.
+ */
 function cancelEdit() {
 	window.location.reload(true);
 }
 
+/**
+ * Initiates the search for papers when the Search button is pressed.
+ * Uses an AJAX request to call the Papers API.
+ * Updates the page to show the Search Results.
+ */
 function searchPapers() {
   const type = $('#search_concept').text().substring(1);
   const searchQuery = $('#searchQuery').val();
@@ -158,6 +180,9 @@ function searchPapers() {
   });
 }
 
+/**
+ * Resets the Search Results on the Papers page
+ */
 function resetSearch() {
 
   $.ajax({

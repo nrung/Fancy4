@@ -6,7 +6,6 @@
  * Team 11 (Fancy 4)
  * @author Brendon Strowe
  * @version 5 of May 2017
- * @modified Nick Rung
  */
 
 let MySQLDatabase = require('../MySQLDatabase.js');

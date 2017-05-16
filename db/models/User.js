@@ -5,7 +5,6 @@
  * ISTE 330 01
  * Team 11 (Fancy Four)
  * @author Brendon Strowe
- * @modified Nick Rung
  * @version 17 of April 2017
  */
 
