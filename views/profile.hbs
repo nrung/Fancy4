@@ -1,12 +1,10 @@
 <br>
 <h1>Profile page!</h1>
-<ul>
-    <li>ID: {{user.id}}</li>
-    <li>Email: {{user.email}}</li>
-    <li>First Name: {{user.firstName}}</li>
-    <li>Last Name: {{user.lastName}}</li>
-    <li>Role: {{user.role}}</li>
-    <li>Password (hashed): {{user.password}}</li>
+<ul class="list-group">
+    <li class="list-group-item">ID: {{user.id}}</li>
+    <li class="list-group-item">Email: {{user.email}}</li>
+    <li class="list-group-item">First Name: {{user.firstName}}</li>
+    <li class="list-group-item">Last Name: {{user.lastName}}</li>
+    <li class="list-group-item">Role: {{user.role}}</li>
+    <li class="list-group-item">Password (hashed): {{user.password}}</li>
 </ul>
-
-<a href="/logout">Logout!</a>
