@@ -13,20 +13,20 @@
 function removePaper(id) {
 
   $.ajax({
-      url: '/api/paper/' + id,
-      type: 'DELETE',
-      success: function(result) {
-          console.log(result.message);
-          window.location = '/papers';
-        },
-      fail: function(result) {
-          if (result.message) {
-            console.log(result.message);
-          } else {
-            console.log('ERROR');
-          }
-        }
-    });
+    url: '/api/paper/' + id,
+    type: 'DELETE',
+    success: function(result) {
+      console.log(result.message);
+      window.location = '/papers';
+    },
+    fail: function(result) {
+      if (result.message) {
+        console.log(result.message);
+      } else {
+        console.log('ERROR');
+      }
+    },
+  });
 }
 
 /*
@@ -37,38 +37,40 @@ function enterEditMode(paperId) {
 
   $('form h2').each(
       function(index, element) {
-          let attributes = {};
+        let attributes = {};
 
-          $.each(element.attributes, function(index, attribute) {
-              attributes[attribute.nodeName] = attribute.nodeValue;
-            });
+        $.each(element.attributes, function(index, attribute) {
+          attributes[attribute.nodeName] = attribute.nodeValue;
+        });
 
-          $(element).replaceWith(function() {
-              attributes.value = $(this).text();
-              attributes.type = 'text';
-              attributes.class = 'form-control';
-              return $('<input />', attributes);
-            });
-        }
+        $(element).replaceWith(function() {
+          attributes.value = $(this).text();
+          attributes.type = 'text';
+          attributes.class = 'form-control';
+          return $('<input />', attributes);
+        });
+      },
   );
 
   $('form p').each(
       function(index, element) {
-          let attributes = {};
+        let attributes = {};
 
-          $.each(element.attributes, function(index, attribute) {
-              attributes[attribute.nodeName] = attribute.nodeValue;
-            });
+        $.each(element.attributes, function(index, attribute) {
+          attributes[attribute.nodeName] = attribute.nodeValue;
+        });
 
-          $(element).replaceWith(function() {
-              attributes.text = $(this).text();
-              attributes.class = 'form-control';
-              return $('<textarea />', attributes);
-            });
-        }
+        $(element).replaceWith(function() {
+          attributes.text = $(this).text();
+          attributes.class = 'form-control';
+          return $('<textarea />', attributes);
+        });
+      },
   );
 
-  $('#editMode').replaceWith(`<button class="btn btn-success" onclick="saveEdits(${paperId})" >Save</button>`);
+  $('#editMode').
+      replaceWith(
+          `<button class="btn btn-success" onclick="saveEdits(${paperId})" >Save</button>`);
 }
 
 function searchPapers() {
@@ -78,62 +80,65 @@ function searchPapers() {
   console.log(type);
   console.log(searchQuery);
 
-  $.ajax({
-      url: '/api/search',
-      type: 'POST',
-      data: {'type': type, 'query': searchQuery},
-      success: function(data) {
-          let papers = data.papers;
-          console.dir(data);
+  if (data.papers.length) {
+    data.papers.forEach(function(item, index) {
+      let paperString = '';
+      let paper = item.paper;
+      console.dir(paper);
 
-          $('#papers').empty();
+      if (item.startRow) {
+        paperString += '<div class="row">';
+      }
 
-          if (papers.length) {
-            papers.forEach(function(item) {
-                let paper = item.paper;
-                $('#papers').append(`<div class="col-md-3">
-<div class="panel panel-default">
-<div class="panel-heading"><h2>${paper.title}</h2></div>
-<div class="panel-body"><p>${paper.abstract}</p></div>
-<div class="panel-footer">
-<a class="btn btn-danger" href="/paper/${paper.id}"> More Info</a>
-</div>
-</div>
-</div>`);
-              });
-          } else {
-            $('#papers').append('<h3 class=\'bg-danger text-center\'>No Results Found.</h3>');
-          }
-        },
-      dataType: 'json'
+      paperString += `<div class="col-md-3">
+      <div class="panel panel-default">
+      <div class="panel-heading">
+      <h2>${paper.title}</h2>
+      </div>
+      <div class="panel-body">
+      <p>${paper.abstract}</p>
+      </div>
+      <div class="panel-footer">
+      <a class="btn btn-danger" href="/paper/${paper.id}"> More Info</a>
+      </div>
+      </div>
+      </div>`;
+      if (item.endRow) {
+        paperString += '</div>';
+      }
+
+      $('#papers').append(paperString);
     });
+  } else {
+      $('#papers').
+          append(
+              '<h3 class=\'bg-danger text-center\'>No Results Found.</h3>');
+    }
 }
 
 function resetSearch() {
 
   $.ajax({
-      url: '/api/search',
-      type: 'POST',
-      data: {'type': 'Title', 'query': ''},
-      success: function(data) {
+    url: '/api/search',
+    type: 'POST',
+    data: {'type': 'Title', 'query': ''},
+    success: function(data) {
 
-          console.dir(data);
-          $('#papers').empty();
+      console.dir(data);
+      $('#papers').empty();
 
-          if (data.papers.length) {
-            data.papers.forEach(function(item, index) {
-                let paper = item.paper;
-                console.dir(paper);
-                //
-                // if(startRow) {
-                //     paperString += '<div class="row">';
-                // }
-                // if(endRow) {
-                //     paperString += '</div>';
-                // }
+      let paperString = '';
+      if (data.papers.length) {
+        data.papers.forEach(function(item, index) {
 
-                $('#papers').append(`
-<div class="col-md-3">
+          let paper = item.paper;
+
+          if (item.start) {
+            console.log('start');
+            paperString += '<div class="row">';
+          }
+
+          paperString += `<div class="col-md-3">
 <div class="panel panel-default">
 <div class="panel-heading">
 <h2>${paper.title}</h2>
@@ -145,12 +150,21 @@ function resetSearch() {
 <a class="btn btn-danger" href="/paper/${paper.id}"> More Info</a>
 </div>
 </div>
-</div>`);
-              });
-          } else {
-            $('#papers').append('<h3 class=\'bg-danger text-center\'>No Results Found.</h3>');
+</div>`;
+          if (item.end) {
+            paperString += '</div>';
           }
-        },
-      dataType: 'json'
-    });
+
+
+        });
+
+        $('#papers').append(paperString);
+      } else {
+        $('#papers').
+            append(
+                '<h3 class=\'bg-danger text-center\'>No Results Found.</h3>');
+      }
+    },
+    dataType: 'json',
+  });
 }
