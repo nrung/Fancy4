@@ -25,6 +25,10 @@ h1.ErrorPage {
     text-align: center;
 }
 
+h1.ErrorPage > img {
+    display: inline;
+}
+
 h5.ErrorPage {
     margin: 0 auto;
     text-align: center;

@@ -3,9 +3,10 @@
    Team 11 (Fancy 4)
    Script Author: Andrew Diana
 */
+USE FacultyResearch;
 
 /*Insert Into Users table*/
-INSERT INTO Users (id,firstName,lastName,email,role,password)
+INSERT INTO users (id,firstName,lastName,email,role,password)
 	VALUES
     (1,'Andrew','Diana','axd7832@rit.edu','a','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha'),
     (2,'Nick','Rung','nxr8475@rit.edu','f','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha'),
@@ -15,7 +16,7 @@ INSERT INTO Users (id,firstName,lastName,email,role,password)
     (6,'Flo','Pro','flobot@rit.edu','f','$2a$10$iCpK/QanLJPpBxByKyIim.KG4Y6whGoCHJLFgzZX.k3nhIP/HH3Ha');
 
 /*Insert into Papers table*/
-INSERT INTO Papers (id,title,abstract,citation)
+INSERT INTO papers (id,title,abstract,citation)
 	VALUES
     (1,'Big Data: Using Smart Big Data', 'Andrew Diana reads a textbook','Andrew wrote this.'),
     (2,'Advanced Computing, Networking, and Infomatics', 'Nick Rung reads a textbook','Nick wrote this.'),
@@ -29,7 +30,7 @@ INSERT INTO Papers (id,title,abstract,citation)
 	(10,'Erin Does Research', 'Erin McGeever reads a textbook','Brendan wrote this.');
 
 /*Insert into Authorship table*/
-INSERT INTO Authorship (userId,paperId)
+INSERT INTO authorship (userId,paperId)
 	VALUES
     (1,1),
     (1,7),
@@ -43,7 +44,7 @@ INSERT INTO Authorship (userId,paperId)
     (6,6);
 
 /*Insert Into PaperKeywords table*/
-INSERT INTO PaperKeywords (paperId,keyword)
+INSERT INTO paperkeywords (paperId,keyword)
 	VALUES
 	(1,'Andrew'),
 	(1,'Diana'),
@@ -57,12 +58,4 @@ INSERT INTO PaperKeywords (paperId,keyword)
     (4,'Brendan'),
 	(4,'McGeever'),
 	(4,'Research');
-
-/*INSERT INTO Saved Papers*/
-INSERT INTO SavedPapers (userId, paperId)
-	VALUES
-    (1,1),
-    (1,3),
-    (1,2),
-    (1,4);
 
