@@ -35,7 +35,7 @@ function removePaper(id) {
  */
 function enterEditMode(paperId) {
 
-  $('form h2').each(
+  $('#paper h2').each(
       function(index, element) {
         let attributes = {};
 
@@ -52,7 +52,7 @@ function enterEditMode(paperId) {
       },
   );
 
-  $('form p').each(
+  $('#paper p').each(
       function(index, element) {
         let attributes = {};
 
@@ -70,7 +70,51 @@ function enterEditMode(paperId) {
 
   $('#editMode').
       replaceWith(
-          `<button class="btn btn-success" onclick="saveEdits(${paperId})">Save</button>`);
+          `<div id="edit"><button class="btn btn-warning" onclick="cancelEdit(${paperId})">Cancel</button>
+<br><br>
+<button class="btn btn-success" onclick="saveEdits(${paperId})">Save</button>
+</div>`);
+}
+
+function cancelEdit(paperId) {
+  $('#edit').
+      replaceWith(
+          `<button class="btn btn-info" onclick="enterEditMode(${paperId})" 
+id="editMode">Edit</button>`);
+
+  $('#paper .text-center textarea').each(
+      function(index, element) {
+        let attributes = {};
+
+        $.each(element.attributes, function(index, attribute) {
+          attributes[attribute.nodeName] = attribute.nodeValue;
+        });
+
+        $(element).replaceWith(function() {
+          attributes.value = $(this).text();
+          attributes.type = 'text';
+          attributes.class = 'form-control';
+          return $('<input />', attributes);
+        });
+      },
+  );
+
+  $('#paper p').each(
+      function(index, element) {
+        let attributes = {};
+
+        $.each(element.attributes, function(index, attribute) {
+          attributes[attribute.nodeName] = attribute.nodeValue;
+        });
+
+        $(element).replaceWith(function() {
+          attributes.text = $(this).text();
+          attributes.class = 'form-control';
+          return $('<textarea />', attributes);
+        });
+      },
+  );
+
 }
 
 function searchPapers() {
@@ -101,9 +145,7 @@ function searchPapers() {
 
           paperString += `<div class="col-md-3">
       <div class="panel panel-default">
-      <div class="panel-heading">
-      <h2>${paper.title}</h2>
-      </div>
+      <div class="panel-heading"><strong>${paper.title}</strong></div>
       <div class="panel-body">
       <p>${paper.abstract}</p>
       </div>
@@ -119,10 +161,11 @@ function searchPapers() {
           $('#papers').append(paperString);
         });
       } else {
-        $('#papers').append('<h3 class="bg-danger text-center">No Results Found.</h3>');
+        $('#papers').
+            append('<h3 class="bg-danger text-center">No Results Found.</h3>');
       }
     },
-    dataType: 'json'
+    dataType: 'json',
   });
 }
 
@@ -150,9 +193,7 @@ function resetSearch() {
 
           paperString += `<div class="col-md-3">
 <div class="panel panel-default">
-<div class="panel-heading">
-<h2>${paper.title}</h2>
-</div>
+<div class="panel-heading"><strong>${paper.title}</strong></div>
 <div class="panel-body">
 <p>${paper.abstract}</p>
 </div>
@@ -165,7 +206,6 @@ function resetSearch() {
             paperString += '</div>';
           }
 
-
         });
 
         $('#papers').append(paperString);
@@ -175,6 +215,6 @@ function resetSearch() {
                 '<h3 class="bg-danger text-center">No Results Found.</h3>');
       }
     },
-    dataType: 'json'
+    dataType: 'json',
   });
 }

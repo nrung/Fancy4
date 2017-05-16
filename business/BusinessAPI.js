@@ -20,6 +20,18 @@ class BusinessAPI {
         });
     };
 
+    modifyPaper(id, title, abstract, citation) {
+
+        return new Promise((resolve, reject) => {
+            let paper = new Paper(id, title, abstract, citation);
+            paper.put().then(resultSet => {
+                resolve(resultSet);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    };
+
     searchPapers(type, query) {
 
         return new Promise((resolve, reject) => {

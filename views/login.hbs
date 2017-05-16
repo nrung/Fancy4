@@ -1,6 +1,12 @@
 <div class="login">
     {{#if message}}
-        <p class="danger">{{message}}</p>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <p class="bg-danger text-center text-danger" style="padding: 1em;">{{message}}</p>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
     {{/if}}
     <div class="row main">
         <div class="col-md-3"></div>

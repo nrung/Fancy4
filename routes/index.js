@@ -90,7 +90,7 @@ router.get('/paper/:id', (req, res) => {
   }
   Business.getPaper(id).then(result => {
     console.dir(result);
-    res.render('paper', {paper: result, admin: admin});
+    res.render('paper', {paper: result, admin: admin, user: req.user});
   }).catch(error => {
     console.dir(error);
     res.status(500);
